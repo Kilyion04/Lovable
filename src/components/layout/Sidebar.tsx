@@ -8,7 +8,9 @@ import {
   Award, 
   User, 
   Mail, 
-  X 
+  X,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -47,16 +49,28 @@ const navItems: NavItem[] = [
 ];
 
 export const Sidebar = () => {
-  const { isOpen, closeSidebar } = useContext(SidebarContext);
+  const { isOpen, isCollapsed, closeSidebar, toggleCollapsed } = useContext(SidebarContext);
 
   return (
     <aside
       className={cn(
-        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] w-64 bg-sidebar border-r transition-transform duration-300 ease-in-out lg:translate-x-0",
-        isOpen ? "translate-x-0" : "-translate-x-full"
+        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-300 ease-in-out lg:translate-x-0 group",
+        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
+        isCollapsed ? "w-16" : "w-64"
       )}
+      onMouseEnter={() => !isOpen && toggleCollapsed()}
+      onMouseLeave={() => isCollapsed || toggleCollapsed()}
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full relative">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="absolute -right-3 top-3 w-6 h-6 rounded-full border shadow-sm bg-background hidden lg:flex items-center justify-center"
+          onClick={toggleCollapsed}
+        >
+          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+        </Button>
+        
         <div className="flex items-center justify-between p-4 lg:hidden">
           <h2 className="text-lg font-semibold">Navigation</h2>
           <Button variant="ghost" size="icon" onClick={closeSidebar}>
@@ -69,7 +83,10 @@ export const Sidebar = () => {
             <a
               key={item.label}
               href={item.href}
-              className="flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+              className={cn(
+                "flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors",
+                isCollapsed && "justify-center"
+              )}
               onClick={() => {
                 if (window.innerWidth < 1024) {
                   closeSidebar();
@@ -77,7 +94,12 @@ export const Sidebar = () => {
               }}
             >
               {item.icon}
-              <span>{item.label}</span>
+              <span className={cn(
+                "transition-opacity duration-300", 
+                isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+              )}>
+                {item.label}
+              </span>
             </a>
           ))}
         </div>
