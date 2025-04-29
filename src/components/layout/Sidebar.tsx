@@ -54,7 +54,7 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-300 ease-in-out lg:translate-x-0 group",
+        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-500 ease-in-out lg:translate-x-0 group",
         isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         isCollapsed ? "w-16" : "w-64"
       )}
@@ -85,7 +85,7 @@ export const Sidebar = () => {
               href={item.href}
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors",
-                isCollapsed && "justify-center"
+                isCollapsed ? "justify-center" : ""
               )}
               onClick={() => {
                 if (window.innerWidth < 1024) {
@@ -93,10 +93,12 @@ export const Sidebar = () => {
                 }
               }}
             >
-              {item.icon}
+              <div className="flex-shrink-0 w-5 h-5">
+                {item.icon}
+              </div>
               <span className={cn(
-                "transition-opacity duration-300", 
-                isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100"
+                "transition-all duration-500 whitespace-nowrap", 
+                isCollapsed ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"
               )}>
                 {item.label}
               </span>
