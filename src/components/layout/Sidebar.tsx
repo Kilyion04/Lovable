@@ -1,16 +1,12 @@
 
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
-import { Button } from "@/components/ui/button";
 import { 
   Home, 
   Briefcase, 
   Award, 
   User, 
-  Mail, 
-  X,
-  ChevronLeft,
-  ChevronRight
+  Mail
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,87 +20,62 @@ const navItems: NavItem[] = [
   {
     label: "Accueil",
     href: "#home",
-    icon: <Home className="w-5 h-5" />,
+    icon: <Home size={24} />,
   },
   {
     label: "Projets",
     href: "#projects",
-    icon: <Briefcase className="w-5 h-5" />,
+    icon: <Briefcase size={24} />,
   },
   {
     label: "Compétences",
     href: "#skills",
-    icon: <Award className="w-5 h-5" />,
+    icon: <Award size={24} />,
   },
   {
     label: "À propos",
     href: "#about",
-    icon: <User className="w-5 h-5" />,
+    icon: <User size={24} />,
   },
   {
     label: "Contact",
     href: "#contact",
-    icon: <Mail className="w-5 h-5" />,
+    icon: <Mail size={24} />,
   },
 ];
 
 export const Sidebar = () => {
-  const { isOpen, isCollapsed, closeSidebar, toggleCollapsed } = useContext(SidebarContext);
+  const { isExpanded, setIsExpanded } = useContext(SidebarContext);
 
   return (
     <aside
       className={cn(
-        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-500 ease-in-out lg:translate-x-0 group",
-        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-        isCollapsed ? "w-16" : "w-64"
+        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-300",
+        "lg:translate-x-0",
+        isExpanded ? "w-64" : "w-16"
       )}
-      onMouseEnter={() => !isOpen && toggleCollapsed()}
-      onMouseLeave={() => isCollapsed || toggleCollapsed()}
+      onMouseEnter={() => setIsExpanded(true)}
+      onMouseLeave={() => setIsExpanded(false)}
     >
-      <div className="flex flex-col h-full relative">
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="absolute -right-3 top-3 w-6 h-6 rounded-full border shadow-sm bg-background hidden lg:flex items-center justify-center"
-          onClick={toggleCollapsed}
-        >
-          {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-        </Button>
-        
-        <div className="flex items-center justify-between p-4 lg:hidden">
-          <h2 className="text-lg font-semibold">Navigation</h2>
-          <Button variant="ghost" size="icon" onClick={closeSidebar}>
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
-        
-        <div className="flex flex-col p-2 space-y-1">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-500 ease-in-out",
-                isCollapsed ? "justify-center" : ""
-              )}
-              onClick={() => {
-                if (window.innerWidth < 1024) {
-                  closeSidebar();
-                }
-              }}
+      <div className="flex flex-col h-full p-2 space-y-1">
+        {navItems.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-300"
+          >
+            <div className="min-w-[24px] flex justify-center">
+              {item.icon}
+            </div>
+            <span
+              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
+              }`}
             >
-              <div className="flex-shrink-0 w-5 h-5 transition-none">
-                {item.icon}
-              </div>
-              <span className={cn(
-                "transition-all duration-500 ease-in-out whitespace-nowrap overflow-hidden", 
-                isCollapsed ? "w-0 opacity-0 absolute" : "w-auto opacity-100 relative"
-              )}>
-                {item.label}
-              </span>
-            </a>
-          ))}
-        </div>
+              {item.label}
+            </span>
+          </a>
+        ))}
       </div>
     </aside>
   );

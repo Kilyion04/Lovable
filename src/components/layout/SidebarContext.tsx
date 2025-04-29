@@ -2,19 +2,13 @@
 import { createContext, useState } from "react";
 
 type SidebarContextType = {
-  isOpen: boolean;
-  isCollapsed: boolean;
-  toggleSidebar: () => void;
-  closeSidebar: () => void;
-  toggleCollapsed: () => void;
+  isExpanded: boolean;
+  setIsExpanded: (expanded: boolean) => void;
 };
 
 export const SidebarContext = createContext<SidebarContextType>({
-  isOpen: false,
-  isCollapsed: true,
-  toggleSidebar: () => {},
-  closeSidebar: () => {},
-  toggleCollapsed: () => {},
+  isExpanded: false,
+  setIsExpanded: () => {},
 });
 
 export const SidebarProvider = ({ 
@@ -22,28 +16,12 @@ export const SidebarProvider = ({
 }: { 
   children: React.ReactNode 
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsOpen(false);
-  };
-  
-  const toggleCollapsed = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <SidebarContext.Provider value={{ 
-      isOpen, 
-      isCollapsed, 
-      toggleSidebar, 
-      closeSidebar, 
-      toggleCollapsed 
+      isExpanded, 
+      setIsExpanded
     }}>
       {children}
     </SidebarContext.Provider>
