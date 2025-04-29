@@ -84,7 +84,7 @@ export const Sidebar = () => {
               key={item.label}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors",
+                "flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-500",
                 isCollapsed ? "justify-center" : ""
               )}
               onClick={() => {
@@ -93,12 +93,15 @@ export const Sidebar = () => {
                 }
               }}
             >
-              <div className="flex-shrink-0 w-5 h-5">
+              <div className={cn(
+                "flex-shrink-0 w-5 h-5 transition-transform duration-500",
+                isCollapsed ? "transform-none" : "transform-none"
+              )}>
                 {item.icon}
               </div>
               <span className={cn(
-                "transition-all duration-500 whitespace-nowrap", 
-                isCollapsed ? "w-0 opacity-0 overflow-hidden" : "w-auto opacity-100"
+                "transition-all duration-500 whitespace-nowrap overflow-hidden", 
+                isCollapsed ? "w-0 opacity-0 max-w-0" : "w-auto opacity-100 max-w-full"
               )}>
                 {item.label}
               </span>
