@@ -11,13 +11,21 @@ import {
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { toggleSidebar } = useContext(SidebarContext);
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchValue.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+    }
+  };
 
   return (
     <nav className="flex items-center justify-between px-4 py-3 border-b bg-background sticky top-0 z-10">
@@ -38,7 +46,7 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <div className="hidden md:flex relative items-center max-w-md flex-1 mx-4">
+      <form onSubmit={handleSearchSubmit} className="hidden md:flex relative items-center max-w-md flex-1 mx-4">
         <Search className="absolute left-2 h-4 w-4 text-muted-foreground" />
         <Input
           type="search"
@@ -47,7 +55,7 @@ export const Navbar = () => {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
-      </div>
+      </form>
 
       <div className="flex items-center space-x-2">
         <Button 
