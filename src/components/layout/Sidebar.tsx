@@ -78,7 +78,7 @@ export const Sidebar = () => {
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
     >
-      <div className="flex flex-col h-full p-2 space-y-1">
+      <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
           <Link
             key={item.label}
