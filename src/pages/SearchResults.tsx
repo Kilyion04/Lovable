@@ -1,5 +1,5 @@
 
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect } from "react";
@@ -28,6 +28,7 @@ const highlightText = (text: string, query: string) => {
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const query = searchParams.get("q") || "";
   const [results, setResults] = useState<typeof pages>([]);
 
@@ -41,8 +42,15 @@ export default function SearchResults() {
   }, [query]);
 
   const handleResultClick = (path: string) => {
-    // Navigate to the appropriate page and scroll to the section
-    window.location.href = path;
+    // Navigate using React Router instead of directly modifying window.location
+    navigate("/", { replace: true });
+    // After navigation, scroll to the specific section
+    setTimeout(() => {
+      const element = document.querySelector(path);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   };
 
   return (

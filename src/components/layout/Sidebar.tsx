@@ -1,6 +1,7 @@
 
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
+import { Link } from "react-router-dom";
 import { 
   Home, 
   Briefcase, 
@@ -19,27 +20,27 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     label: "Accueil",
-    href: "#home",
+    href: "/#home",
     icon: <Home size={24} />,
   },
   {
     label: "Projets",
-    href: "#projects",
+    href: "/#projects",
     icon: <Briefcase size={24} />,
   },
   {
     label: "Compétences",
-    href: "#skills",
+    href: "/#skills",
     icon: <Award size={24} />,
   },
   {
     label: "À propos",
-    href: "#about",
+    href: "/#about",
     icon: <User size={24} />,
   },
   {
     label: "Contact",
-    href: "#contact",
+    href: "/#contact",
     icon: <Mail size={24} />,
   },
 ];
@@ -59,9 +60,9 @@ export const Sidebar = () => {
     >
       <div className="flex flex-col h-full p-2 space-y-1">
         {navItems.map((item) => (
-          <a
+          <Link
             key={item.label}
-            href={item.href}
+            to={item.href}
             className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-300"
           >
             <div className="min-w-[24px] flex justify-center">
@@ -74,7 +75,7 @@ export const Sidebar = () => {
             >
               {item.label}
             </span>
-          </a>
+          </Link>
         ))}
       </div>
     </aside>
