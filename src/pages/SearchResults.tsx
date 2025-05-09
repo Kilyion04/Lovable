@@ -13,6 +13,19 @@ const pages = [
   { id: 5, title: "Contact", content: "Comment me contacter pour vos projets", path: "#contact" }
 ];
 
+// Function to highlight search term in text
+const highlightText = (text: string, query: string) => {
+  if (!query || query === '') return text;
+  
+  const parts = text.split(new RegExp(`(${query})`, 'gi'));
+  
+  return parts.map((part, index) => 
+    part.toLowerCase() === query.toLowerCase() 
+      ? <mark key={index} className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">{part}</mark> 
+      : part
+  );
+};
+
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q") || "";
@@ -26,6 +39,11 @@ export default function SearchResults() {
     );
     setResults(filteredResults);
   }, [query]);
+
+  const handleResultClick = (path: string) => {
+    // Navigate to the appropriate page and scroll to the section
+    window.location.href = path;
+  };
 
   return (
     <Layout>
@@ -43,16 +61,21 @@ export default function SearchResults() {
       ) : (
         <div className="space-y-4">
           {results.map(result => (
-            <Card key={result.id} className="hover:shadow-md transition-shadow">
+            <Card 
+              key={result.id} 
+              className="hover:shadow-md transition-shadow cursor-pointer"
+              onClick={() => handleResultClick(result.path)}
+            >
               <CardHeader>
-                <CardTitle>
-                  <a href={result.path} className="text-primary hover:underline">
-                    {result.title}
-                  </a>
+                <CardTitle className="text-primary hover:underline">
+                  {highlightText(result.title, query)}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p>{result.content}</p>
+                <p>{highlightText(result.content, query)}</p>
+                <div className="mt-2 text-xs text-muted-foreground">
+                  <span>Cliquez pour accéder à cette section</span>
+                </div>
               </CardContent>
             </Card>
           ))}
