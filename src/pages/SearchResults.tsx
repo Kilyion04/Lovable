@@ -42,15 +42,8 @@ export default function SearchResults() {
   }, [query]);
 
   const handleResultClick = (path: string) => {
-    // Navigate using React Router instead of directly modifying window.location
-    navigate("/", { replace: true });
-    // After navigation, scroll to the specific section
-    setTimeout(() => {
-      const element = document.querySelector(path);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 100);
+    // Navigate to the home page and add anchor
+    navigate(`/${path}`);
   };
 
   return (

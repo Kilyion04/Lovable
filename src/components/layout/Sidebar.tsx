@@ -1,7 +1,7 @@
 
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { 
   Home, 
   Briefcase, 
@@ -47,6 +47,26 @@ const navItems: NavItem[] = [
 
 export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
+  const location = useLocation();
+
+  // Function to handle navigation to anchor links
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    // If we're not already on the home page, prevent default and use Link navigation
+    if (!location.pathname.startsWith('/')) {
+      e.preventDefault();
+      window.location.href = path;
+    } else {
+      // If we're on the home page, just scroll to the section
+      const sectionId = path.split('#')[1];
+      if (sectionId) {
+        e.preventDefault();
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  };
 
   return (
     <aside
@@ -63,6 +83,7 @@ export const Sidebar = () => {
           <Link
             key={item.label}
             to={item.href}
+            onClick={(e) => handleNavigation(e, item.href)}
             className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-300"
           >
             <div className="min-w-[24px] flex justify-center">
