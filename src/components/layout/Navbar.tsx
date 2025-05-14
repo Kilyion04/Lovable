@@ -41,7 +41,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between px-4 py-3 border-b bg-background sticky top-0 z-10">
+    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-3 border-b bg-background">
       <div className="flex items-center">
         <Button 
           variant="ghost" 
@@ -60,11 +60,11 @@ export const Navbar = () => {
       </div>
 
       <form onSubmit={handleSearchSubmit} className="hidden md:flex relative items-center max-w-md flex-1 mx-4">
-        <Search className="absolute left-2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-2 h-4 w-4 text-muted-foreground pointer-events-none" />
         <Input
           type="search"
           placeholder="Rechercher..."
-          className="pl-8 w-full"
+          className="pl-8 w-full bg-background"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />

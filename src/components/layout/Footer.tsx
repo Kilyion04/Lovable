@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="bg-background border-t py-8 mt-auto">
+    <footer className="bg-background border-t py-8 mt-auto relative z-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -30,6 +30,11 @@ export const Footer = () => {
               <li>
                 <Link to="/#contact" className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/minecraft" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Minecraft
                 </Link>
               </li>
             </ul>

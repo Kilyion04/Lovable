@@ -47,7 +47,7 @@ const navItems: NavItem[] = [
   {
     label: "Minecraft",
     href: "/minecraft",
-    icon: <Gamepad size={24} />, // Remplacez par une icône appropriée
+    icon: <Gamepad size={24} />,
   }
 ];
 
@@ -83,6 +83,7 @@ export const Sidebar = () => {
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
+      style={{ transition: "background-color 0.2s ease, width 0.3s ease" }}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
