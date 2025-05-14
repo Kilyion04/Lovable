@@ -2,12 +2,13 @@
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
 import { Link, useLocation } from "react-router-dom";
-import { 
-  Home, 
-  Briefcase, 
-  Award, 
-  User, 
-  Mail
+import {
+  Home,
+  Briefcase,
+  Award,
+  User,
+  Mail,
+  Gamepad
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -43,6 +44,11 @@ const navItems: NavItem[] = [
     href: "/#contact",
     icon: <Mail size={24} />,
   },
+  {
+    label: "Minecraft",
+    href: "/minecraft",
+    icon: <Gamepad size={24} />, // Remplacez par une icône appropriée
+  }
 ];
 
 export const Sidebar = () => {
@@ -90,9 +96,8 @@ export const Sidebar = () => {
               {item.icon}
             </div>
             <span
-              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
-                isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
-              }`}
+              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
+                }`}
             >
               {item.label}
             </span>
