@@ -207,36 +207,37 @@ export const Sidebar = () => {
             to={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
             className={cn(
-              "flex flex-col p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              "flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
               "transition-all duration-300 ease-in-out transform",
               !isExpanded && "hover:scale-110"
             )}
           >
-            <div className="flex items-center">
+            {/* Container for icon to ensure consistent height */}
+            <div className="flex items-center h-8">
               <div className={cn(
-                "flex justify-center transition-all duration-300 ease-in-out",
+                "flex justify-center items-center transition-all duration-300 ease-in-out",
                 isExpanded ? "min-w-[24px]" : "min-w-[100%]"
               )}>
                 {item.icon}
               </div>
-              <span
-                className={cn(
-                  "text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out",
-                  isExpanded ? "opacity-100 ml-2 max-w-full" : "opacity-0 max-w-0 overflow-hidden ml-0"
-                )}
-              >
-                {item.label}
-              </span>
-            </div>
-            
-            {/* Description text appears with fade-in animation when expanded */}
-            <div 
-              className={cn(
-                "mt-1 text-xs text-sidebar-foreground/70 transition-all duration-300 ease-in-out",
-                isExpanded ? "opacity-100 max-h-20 pl-[32px]" : "opacity-0 max-h-0 overflow-hidden"
-              )}
-            >
-              {item.description}
+              
+              {/* Text container with improved slide-in animation */}
+              <div className={cn(
+                "flex flex-col justify-center ml-2 overflow-hidden transition-all duration-300 ease-in-out",
+                isExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
+              )}>
+                <span className="text-sm font-medium whitespace-nowrap">
+                  {item.label}
+                </span>
+                
+                {/* Description with fade-in animation */}
+                <span className={cn(
+                  "text-xs text-sidebar-foreground/70 whitespace-nowrap transition-all duration-300 ease-in-out",
+                  isExpanded ? "opacity-100 max-h-12" : "opacity-0 max-h-0"
+                )}>
+                  {item.description}
+                </span>
+              </div>
             </div>
           </Link>
         ))}
