@@ -1,72 +1,60 @@
 
 import { Layout } from "@/components/layout/Layout";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
 
-const projects = [
+const projectItems = [
   {
-    id: 1,
-    title: "Projet E-commerce",
-    description: "Une plateforme de commerce électronique complète avec panier d'achat et paiement en ligne.",
-    tags: ["React", "Node.js", "MongoDB"],
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    title: "Portfolio Personnel",
+    description: "Site web portfolio avec React et Tailwind CSS",
+    tech: ["React", "Tailwind CSS", "TypeScript"],
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=900"
   },
   {
-    id: 2,
     title: "Application de Gestion",
-    description: "Un tableau de bord d'administration pour gérer les utilisateurs, les produits et les commandes.",
-    tags: ["TypeScript", "Next.js", "Prisma"],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    description: "Application pour gérer des ressources d'entreprise",
+    tech: ["React", "Node.js", "MongoDB"],
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=900"
   },
   {
-    id: 3,
-    title: "Site Portfolio",
-    description: "Un site web portfolio responsive pour présenter mes projets et compétences.",
-    tags: ["React", "Tailwind CSS", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    title: "Extension Chrome",
+    description: "Extension pour améliorer la productivité",
+    tech: ["JavaScript", "Chrome API", "CSS"],
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=900"
   },
 ];
 
 const Projects = () => {
   return (
     <Layout>
-      <section className="py-20">
+      <section id="all-projects" className="py-20 scroll-mt-28">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Mes Projets</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Découvrez une sélection de mes travaux récents montrant mes compétences et mon expertise.
+            Découvrez mes projets récents et les technologies que j'ai utilisées.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Card key={project.id} className="overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">{tag}</Badge>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projectItems.map((project, index) => (
+            <div key={index} className="bg-card rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow">
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                <p className="text-muted-foreground mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {project.tech.map((tech, techIndex) => (
+                    <span key={techIndex} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                      {tech}
+                    </span>
                   ))}
                 </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="ghost" asChild className="ml-auto">
-                  <a href={`#project-${project.id}`}>
-                    Voir détails <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </section>

@@ -12,7 +12,7 @@ const skills = [
 const Skills = () => {
   return (
     <Layout>
-      <section className="py-20">
+      <section id="technical" className="py-20 scroll-mt-28">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Mes Compétences</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">

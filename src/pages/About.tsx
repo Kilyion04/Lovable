@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 const About = () => {
   return (
     <Layout>
-      <section className="py-20">
+      <section id="journey" className="py-20 scroll-mt-28">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-6">À propos de moi</h2>

@@ -77,18 +77,102 @@ const minecraftNavItems = [
   }
 ];
 
+// Projects page navigation items
+const projectsNavItems = [
+  {
+    label: "Accueil",
+    href: "/",
+    icon: <Home size={24} />,
+    description: "Retour à la page d'accueil"
+  },
+  {
+    label: "Tous les projets",
+    href: "#all-projects",
+    icon: <Briefcase size={24} />,
+    description: "Explorer tous mes projets"
+  }
+];
+
+// Skills page navigation items
+const skillsNavItems = [
+  {
+    label: "Accueil",
+    href: "/",
+    icon: <Home size={24} />,
+    description: "Retour à la page d'accueil"
+  },
+  {
+    label: "Compétences techniques",
+    href: "#technical",
+    icon: <Award size={24} />,
+    description: "Mes compétences techniques"
+  }
+];
+
+// About page navigation items
+const aboutNavItems = [
+  {
+    label: "Accueil",
+    href: "/",
+    icon: <Home size={24} />,
+    description: "Retour à la page d'accueil"
+  },
+  {
+    label: "Parcours",
+    href: "#journey",
+    icon: <User size={24} />,
+    description: "Mon parcours professionnel"
+  }
+];
+
+// Contact page navigation items
+const contactNavItems = [
+  {
+    label: "Accueil",
+    href: "/",
+    icon: <Home size={24} />,
+    description: "Retour à la page d'accueil"
+  },
+  {
+    label: "Formulaire",
+    href: "#contact-form",
+    icon: <Mail size={24} />,
+    description: "Remplir le formulaire de contact"
+  }
+];
+
 export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
   const location = useLocation();
   
   // Determine which navigation items to show based on the current path
-  const isMinecraftPage = location.pathname === '/minecraft';
-  const navItems = isMinecraftPage ? minecraftNavItems : homeNavItems;
+  const pathname = location.pathname;
+  
+  let navItems = homeNavItems;
+  let sectionTitle = "Navigation Portfolio";
+  
+  // Select the appropriate navigation items based on current route
+  if (pathname === '/minecraft') {
+    navItems = minecraftNavItems;
+    sectionTitle = "Navigation Minecraft";
+  } else if (pathname === '/projects') {
+    navItems = projectsNavItems;
+    sectionTitle = "Navigation Projets";
+  } else if (pathname === '/skills') {
+    navItems = skillsNavItems;
+    sectionTitle = "Navigation Compétences";
+  } else if (pathname === '/about') {
+    navItems = aboutNavItems;
+    sectionTitle = "Navigation À propos";
+  } else if (pathname === '/contact') {
+    navItems = contactNavItems;
+    sectionTitle = "Navigation Contact";
+  }
   
   // Function to handle navigation to anchor links
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    // For Minecraft page internal navigation
-    if (isMinecraftPage && path.startsWith('#')) {
+    // For internal page navigation with anchor links
+    if (path.startsWith('#')) {
       e.preventDefault();
       const sectionId = path.substring(1);
       const element = document.getElementById(sectionId);
@@ -97,9 +181,6 @@ export const Sidebar = () => {
       }
     }
   };
-  
-  // Determine the section title based on the current path
-  const sectionTitle = isMinecraftPage ? "Navigation Minecraft" : "Navigation Portfolio";
 
   return (
     <aside
