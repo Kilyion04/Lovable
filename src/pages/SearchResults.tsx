@@ -7,10 +7,10 @@ import { useState, useEffect } from "react";
 // Mock data for search results
 const pages = [
   { id: 1, title: "Accueil", content: "Bienvenue sur mon portfolio", path: "" },
-  { id: 2, title: "Projets", content: "Découvrez mes projets récents en développement web", path: "#projects" },
-  { id: 3, title: "Compétences", content: "React, TypeScript, Node.js, et plus", path: "#skills" },
-  { id: 4, title: "À propos", content: "Mon parcours professionnel et personnel", path: "#about" },
-  { id: 5, title: "Contact", content: "Comment me contacter pour vos projets", path: "#contact" },
+  { id: 2, title: "Projets", content: "Découvrez mes projets récents en développement web", path: "projects" },
+  { id: 3, title: "Compétences", content: "React, TypeScript, Node.js, et plus", path: "skills" },
+  { id: 4, title: "À propos", content: "Mon parcours professionnel et personnel", path: "about" },
+  { id: 5, title: "Contact", content: "Comment me contacter pour vos projets", path: "contact" },
   { id: 6, title: "Minecraft", content: "Gestion de serveur Minecraft et demandes d'accès", path: "minecraft" },
   { id: 7, title: "Prédictions Football", content: "Calculez les chances de victoire d'une équipe", path: "prono" },
   { id: 8, title: "Utilisateur", content: "Modifier vos informations et paramètres", path: "users" },
@@ -39,15 +39,19 @@ export default function SearchResults() {
 
   useEffect(() => {
     // Filter pages based on search query
-    const filteredResults = pages.filter(page => 
-      page.title.toLowerCase().includes(query.toLowerCase()) || 
-      page.content.toLowerCase().includes(query.toLowerCase())
-    );
-    setResults(filteredResults);
+    if (query.trim() === "") {
+      setResults([]);
+    } else {
+      const filteredResults = pages.filter(page => 
+        page.title.toLowerCase().includes(query.toLowerCase()) || 
+        page.content.toLowerCase().includes(query.toLowerCase())
+      );
+      setResults(filteredResults);
+    }
   }, [query]);
 
   const handleResultClick = (path: string) => {
-    // Navigate to the home page and add anchor
+    // Navigate to the page
     navigate(`/${path}`);
   };
 
@@ -58,7 +62,13 @@ export default function SearchResults() {
         <p className="text-muted-foreground">{results.length} résultat(s) trouvé(s)</p>
       </div>
 
-      {results.length === 0 ? (
+      {query.trim() === "" ? (
+        <Card>
+          <CardContent className="p-6">
+            <p>Veuillez entrer un terme de recherche.</p>
+          </CardContent>
+        </Card>
+      ) : results.length === 0 ? (
         <Card>
           <CardContent className="p-6">
             <p>Aucun résultat trouvé pour "{query}".</p>

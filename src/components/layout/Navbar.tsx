@@ -84,6 +84,7 @@ export const Navbar = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // Added admin state
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,6 +99,8 @@ export const Navbar = () => {
     if (email && password) {
       setIsLoggedIn(true);
       setUsername(email.split('@')[0]); // Use part of email as username
+      // Set admin status based on email for demo purposes
+      setIsAdmin(email.toLowerCase().includes('admin'));
       setLoginOpen(false);
       setEmail("");
       setPassword("");
@@ -107,6 +110,7 @@ export const Navbar = () => {
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername("");
+    setIsAdmin(false);
   };
 
   return (
@@ -139,6 +143,7 @@ export const Navbar = () => {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
+          <Button type="submit" className="ml-2" variant="outline">Rechercher</Button>
         </form>
 
         <div className="flex items-center space-x-2">
@@ -181,6 +186,13 @@ export const Navbar = () => {
                       >
                         <User className="h-3.5 w-3.5" />
                         <span>Profil</span>
+                      </Link>
+                      <Link 
+                        to="/users_settings" 
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <Settings className="h-3.5 w-3.5" />
+                        <span>Paramètres</span>
                       </Link>
                       <div 
                         className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
