@@ -87,16 +87,10 @@
 
 @layer base {
   * {
-    @apply border-border transition-colors duration-200;
+    @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
   }
-  
-  /* Add smooth transitions for all color-related properties */
-  button, a, nav, aside, input, select, textarea, div, span {
-    @apply transition-colors duration-200;
-  }
 }
-

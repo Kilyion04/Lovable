@@ -8,176 +8,68 @@ import {
   Award,
   User,
   Mail,
-  Gamepad,
-  Server,
-  Key,
-  FileText
+  Gamepad
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Home page navigation items
-const homeNavItems = [
+type NavItem = {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+};
+
+const navItems: NavItem[] = [
   {
     label: "Accueil",
-    href: "/",
+    href: "/#home",
     icon: <Home size={24} />,
-    description: "Retour à la page d'accueil"
   },
   {
     label: "Projets",
-    href: "/projects",
+    href: "/#projects",
     icon: <Briefcase size={24} />,
-    description: "Découvrir mes projets récents"
   },
   {
     label: "Compétences",
-    href: "/skills",
+    href: "/#skills",
     icon: <Award size={24} />,
-    description: "Explorer mes compétences techniques"
   },
   {
     label: "À propos",
-    href: "/about",
+    href: "/#about",
     icon: <User size={24} />,
-    description: "En savoir plus sur mon parcours"
   },
   {
     label: "Contact",
-    href: "/contact",
+    href: "/#contact",
     icon: <Mail size={24} />,
-    description: "Me contacter pour collaborer"
   },
   {
     label: "Minecraft",
     href: "/minecraft",
     icon: <Gamepad size={24} />,
-    description: "Rejoindre nos serveurs Minecraft"
-  }
-];
-
-// Minecraft page navigation items
-const minecraftNavItems = [
-  {
-    label: "Serveurs",
-    href: "#servers",
-    icon: <Server size={24} />,
-    description: "Liste des serveurs disponibles"
-  },
-  {
-    label: "Demandes d'accès",
-    href: "#access",
-    icon: <Key size={24} />,
-    description: "Demander l'accès aux serveurs"
-  },
-  {
-    label: "Règles",
-    href: "#rules",
-    icon: <FileText size={24} />,
-    description: "Règles générales des serveurs"
-  }
-];
-
-// Projects page navigation items
-const projectsNavItems = [
-  {
-    label: "Accueil",
-    href: "/",
-    icon: <Home size={24} />,
-    description: "Retour à la page d'accueil"
-  },
-  {
-    label: "Tous les projets",
-    href: "#all-projects",
-    icon: <Briefcase size={24} />,
-    description: "Explorer tous mes projets"
-  }
-];
-
-// Skills page navigation items
-const skillsNavItems = [
-  {
-    label: "Accueil",
-    href: "/",
-    icon: <Home size={24} />,
-    description: "Retour à la page d'accueil"
-  },
-  {
-    label: "Compétences techniques",
-    href: "#technical",
-    icon: <Award size={24} />,
-    description: "Mes compétences techniques"
-  }
-];
-
-// About page navigation items
-const aboutNavItems = [
-  {
-    label: "Accueil",
-    href: "/",
-    icon: <Home size={24} />,
-    description: "Retour à la page d'accueil"
-  },
-  {
-    label: "Parcours",
-    href: "#journey",
-    icon: <User size={24} />,
-    description: "Mon parcours professionnel"
-  }
-];
-
-// Contact page navigation items
-const contactNavItems = [
-  {
-    label: "Accueil",
-    href: "/",
-    icon: <Home size={24} />,
-    description: "Retour à la page d'accueil"
-  },
-  {
-    label: "Formulaire",
-    href: "#contact-form",
-    icon: <Mail size={24} />,
-    description: "Remplir le formulaire de contact"
   }
 ];
 
 export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
   const location = useLocation();
-  
-  // Determine which navigation items to show based on the current path
-  const pathname = location.pathname;
-  
-  let navItems = homeNavItems;
-  let sectionTitle = "Navigation Portfolio";
-  
-  // Select the appropriate navigation items based on current route
-  if (pathname === '/minecraft') {
-    navItems = minecraftNavItems;
-    sectionTitle = "Navigation Minecraft";
-  } else if (pathname === '/projects') {
-    navItems = projectsNavItems;
-    sectionTitle = "Navigation Projets";
-  } else if (pathname === '/skills') {
-    navItems = skillsNavItems;
-    sectionTitle = "Navigation Compétences";
-  } else if (pathname === '/about') {
-    navItems = aboutNavItems;
-    sectionTitle = "Navigation À propos";
-  } else if (pathname === '/contact') {
-    navItems = contactNavItems;
-    sectionTitle = "Navigation Contact";
-  }
-  
+
   // Function to handle navigation to anchor links
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    // For internal page navigation with anchor links
-    if (path.startsWith('#')) {
+    // If we're not already on the home page, prevent default and use Link navigation
+    if (!location.pathname.startsWith('/')) {
       e.preventDefault();
-      const sectionId = path.substring(1);
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      window.location.href = path;
+    } else {
+      // If we're on the home page, just scroll to the section
+      const sectionId = path.split('#')[1];
+      if (sectionId) {
+        e.preventDefault();
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };
@@ -185,61 +77,31 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "fixed top-[98px] left-0 z-[5] h-[calc(100vh-98px)] bg-sidebar border-r",
-        "lg:translate-x-0 transition-all duration-500 ease-in-out",
-        isExpanded ? "w-64 shadow-lg" : "w-16"
+        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-300",
+        "lg:translate-x-0",
+        isExpanded ? "w-64" : "w-16"
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
+      style={{ transition: "width 0.3s ease" }}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
-        {/* Section title with fixed height to prevent layout shift */}
-        <div className={cn(
-          "h-8 px-2 py-1.5 text-sm font-medium text-sidebar-foreground/70 mb-2",
-          "transition-all duration-300 ease-in-out",
-          isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 overflow-hidden"
-        )}>
-          {sectionTitle}
-        </div>
-        
         {navItems.map((item) => (
           <Link
             key={item.label}
             to={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
-            className={cn(
-              "flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-              "transition-all duration-300 ease-in-out transform",
-              !isExpanded && "hover:scale-110"
-            )}
+            className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200"
           >
-            {/* Container for icon to ensure consistent height */}
-            <div className="flex items-center h-8">
-              <div className={cn(
-                "flex justify-center items-center transition-all duration-300 ease-in-out",
-                isExpanded ? "min-w-[24px]" : "min-w-[100%]"
-              )}>
-                {item.icon}
-              </div>
-              
-              {/* Text container with improved slide-in animation */}
-              <div className={cn(
-                "flex flex-col justify-center ml-2 overflow-hidden transition-all duration-300 ease-in-out",
-                isExpanded ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
-              )}>
-                <span className="text-sm font-medium whitespace-nowrap">
-                  {item.label}
-                </span>
-                
-                {/* Description with fade-in animation */}
-                <span className={cn(
-                  "text-xs text-sidebar-foreground/70 whitespace-nowrap transition-all duration-300 ease-in-out",
-                  isExpanded ? "opacity-100 max-h-12" : "opacity-0 max-h-0"
-                )}>
-                  {item.description}
-                </span>
-              </div>
+            <div className="min-w-[24px] flex justify-center">
+              {item.icon}
             </div>
+            <span
+              className={`text-sm font-medium whitespace-nowrap transition-all duration-200 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
+                }`}
+            >
+              {item.label}
+            </span>
           </Link>
         ))}
       </div>

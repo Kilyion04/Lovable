@@ -2,7 +2,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Gamepad, Server, Key, FileText } from "lucide-react";
+import { Gamepad, Server } from "lucide-react";
 
 const Minecraft = () => {
     return (
@@ -15,12 +15,8 @@ const Minecraft = () => {
                             <h1 className="text-3xl md:text-4xl font-bold">Gestion de Serveur Minecraft</h1>
                         </div>
                         
-                        <div id="servers" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 scroll-mt-28">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div className="space-y-4">
-                                <div className="flex items-center mb-2">
-                                    <Server className="h-6 w-6 mr-2 text-primary" />
-                                    <h2 className="text-2xl font-semibold">Serveurs disponibles</h2>
-                                </div>
                                 <p className="text-lg">
                                     Découvrez mes serveurs Minecraft et faites une demande pour rejoindre notre communauté de joueurs.
                                     Nous proposons différents types de serveurs adaptés à tous les styles de jeu.
@@ -45,11 +41,8 @@ const Minecraft = () => {
                                 </div>
                             </div>
                             
-                            <div id="access" className="bg-card rounded-lg p-6 shadow-sm border scroll-mt-28">
-                                <div className="flex items-center mb-4">
-                                    <Key className="h-6 w-6 mr-2 text-primary" />
-                                    <h2 className="text-2xl font-semibold">Demande d'accès</h2>
-                                </div>
+                            <div className="bg-card rounded-lg p-6 shadow-sm border">
+                                <h2 className="text-2xl font-semibold mb-6">Demande d'accès</h2>
                                 <form className="space-y-6">
                                     <div>
                                         <label htmlFor="username" className="block text-sm font-medium mb-2">Nom d'utilisateur Minecraft</label>
@@ -101,20 +94,17 @@ const Minecraft = () => {
                                 </form>
                             </div>
                         </div>
-                        
-                        <section id="rules" className="bg-card rounded-lg p-6 shadow-sm border scroll-mt-28">
-                            <div className="flex items-center mb-4">
-                                <FileText className="h-6 w-6 mr-2 text-primary" />
-                                <h2 className="text-2xl font-semibold">Règles du serveur</h2>
-                            </div>
-                            <ul className="list-disc pl-5 space-y-2">
-                                <li>Respectez tous les joueurs</li>
-                                <li>Ne détruisez pas les constructions des autres</li>
-                                <li>Pas de triche ou de hacks</li>
-                                <li>Pas de spam dans le chat</li>
-                                <li>Amusez-vous et soyez créatifs !</li>
-                            </ul>
-                        </section>
+                    </section>
+                    
+                    <section className="bg-card rounded-lg p-6 shadow-sm border">
+                        <h2 className="text-2xl font-semibold mb-4">Règles du serveur</h2>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>Respectez tous les joueurs</li>
+                            <li>Ne détruisez pas les constructions des autres</li>
+                            <li>Pas de triche ou de hacks</li>
+                            <li>Pas de spam dans le chat</li>
+                            <li>Amusez-vous et soyez créatifs !</li>
+                        </ul>
                     </section>
                 </div>
             </div>

@@ -28,10 +28,6 @@ export const ThemeProvider = ({
 
   useEffect(() => {
     const root = window.document.documentElement;
-    
-    // Add a transition class to smooth theme changes
-    root.classList.add('transition-colors', 'duration-300');
-    
     root.classList.remove("light", "dark");
 
     if (theme === "system") {
@@ -48,12 +44,9 @@ export const ThemeProvider = ({
 
   const value = {
     theme,
-    setTheme: (newTheme: Theme) => {
-      localStorage.setItem("theme", newTheme);
-      setTheme(newTheme);
-      
-      // Notify components that the theme has changed
-      window.dispatchEvent(new Event('settingsUpdated'));
+    setTheme: (theme: Theme) => {
+      localStorage.setItem("theme", theme);
+      setTheme(theme);
     },
   };
 
