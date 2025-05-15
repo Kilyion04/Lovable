@@ -9,12 +9,11 @@ import {
   Settings, 
   Menu,
   LogOut,
-  UserCog,
+  Gamepad,
   Home,
   Briefcase,
   Award,
-  Mail,
-  Gamepad
+  Mail
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -26,6 +25,14 @@ import {
   HoverCardTrigger
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog";
 
 type NavItem = {
   label: string;
@@ -72,12 +79,34 @@ export const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginOpen, setLoginOpen] = useState(false);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchValue.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`);
     }
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple mock login - in a real app, this would authenticate against a backend
+    if (email && password) {
+      setIsLoggedIn(true);
+      setUsername(email.split('@')[0]); // Use part of email as username
+      setLoginOpen(false);
+      setEmail("");
+      setPassword("");
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername("");
   };
 
   return (
@@ -126,45 +155,86 @@ export const Navbar = () => {
             )}
           </Button>
 
-          <HoverCard>
-            <HoverCardTrigger asChild>
-              <Link to="/users">
-                <Button variant="ghost" size="icon" aria-label="User profile">
+          {isLoggedIn ? (
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  aria-label="User profile"
+                  onClick={() => navigate('/users')}
+                >
                   <User className="h-5 w-5" />
                 </Button>
-              </Link>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-56">
-              <div className="flex justify-between space-x-4">
-                <Avatar>
-                  <AvatarFallback>UT</AvatarFallback>
-                </Avatar>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-semibold">Utilisateur</h4>
-                  <div className="flex flex-col gap-2 pt-2">
-                    <Link 
-                      to="/users" 
-                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <User className="h-3.5 w-3.5" />
-                      <span>Profil</span>
-                    </Link>
-                    <Link 
-                      to="/users_settings" 
-                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <UserCog className="h-3.5 w-3.5" />
-                      <span>Paramètres</span>
-                    </Link>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-                      <LogOut className="h-3.5 w-3.5" />
-                      <span>Déconnexion</span>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-56">
+                <div className="flex justify-between space-x-4">
+                  <Avatar>
+                    <AvatarFallback>{username.slice(0, 2).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">{username}</h4>
+                    <div className="flex flex-col gap-2 pt-2">
+                      <Link 
+                        to="/users" 
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <User className="h-3.5 w-3.5" />
+                        <span>Profil</span>
+                      </Link>
+                      <div 
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="h-3.5 w-3.5" />
+                        <span>Déconnexion</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </HoverCardContent>
-          </HoverCard>
+              </HoverCardContent>
+            </HoverCard>
+          ) : (
+            <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="User profile">
+                  <User className="h-5 w-5" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Connexion</DialogTitle>
+                  <DialogDescription>
+                    Connectez-vous pour accéder à votre compte
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleLogin} className="space-y-4 pt-4">
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium">Email</label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="votre@email.com" 
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)} 
+                      required 
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="password" className="text-sm font-medium">Mot de passe</label>
+                    <Input 
+                      id="password" 
+                      type="password" 
+                      value={password} 
+                      onChange={(e) => setPassword(e.target.value)} 
+                      required 
+                    />
+                  </div>
+                  <Button type="submit" className="w-full">Se connecter</Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+          )}
 
           <Link to="/users_settings">
             <Button variant="ghost" size="icon" aria-label="Settings">

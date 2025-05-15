@@ -193,10 +193,11 @@ export const Sidebar = () => {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
+        {/* Section title with fixed height to prevent layout shift */}
         <div className={cn(
-          "px-2 py-1.5 text-sm font-medium text-sidebar-foreground/70 mb-2",
+          "h-8 px-2 py-1.5 text-sm font-medium text-sidebar-foreground/70 mb-2",
           "transition-all duration-300 ease-in-out",
-          isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 h-0 overflow-hidden"
+          isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 overflow-hidden"
         )}>
           {sectionTitle}
         </div>
