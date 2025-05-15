@@ -1,5 +1,5 @@
 
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect } from "react";
@@ -34,6 +34,7 @@ const highlightText = (text: string, query: string) => {
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const query = searchParams.get("q") || "";
   const [results, setResults] = useState<typeof pages>([]);
 
@@ -48,10 +49,10 @@ export default function SearchResults() {
       );
       setResults(filteredResults);
     }
-  }, [query]);
+  }, [query, location.key]); // Added location.key to re-run when navigation occurs
 
   const handleResultClick = (path: string) => {
-    // Navigate to the page
+    // Navigate to the page without any search params
     navigate(`/${path}`);
   };
 
