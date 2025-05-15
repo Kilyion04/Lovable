@@ -99,14 +99,10 @@ export const Sidebar = () => {
     }
     
     // For home page sections
-    if (!location.pathname.startsWith('/')) {
+    if (location.pathname === '/' && path.includes('#')) {
       e.preventDefault();
-      window.location.href = path;
-    } else {
-      // If we're on the home page, just scroll to the section
       const sectionId = path.split('#')[1];
       if (sectionId) {
-        e.preventDefault();
         const element = document.getElementById(sectionId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
@@ -121,18 +117,18 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "fixed top-[98px] left-0 z-[5] h-[calc(100vh-98px)] bg-sidebar border-r transition-all duration-300",
-        "lg:translate-x-0",
-        isExpanded ? "w-64" : "w-16"
+        "fixed top-[98px] left-0 z-[5] h-[calc(100vh-98px)] bg-sidebar border-r",
+        "lg:translate-x-0 transition-all duration-500 ease-in-out",
+        isExpanded ? "w-64 shadow-lg" : "w-16"
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      style={{ transition: "width 0.3s ease" }}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
         <div className={cn(
-          "px-2 py-1.5 text-sm font-medium text-sidebar-foreground/70",
-          isExpanded ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
+          "px-2 py-1.5 text-sm font-medium text-sidebar-foreground/70 mb-2",
+          "transition-all duration-300 ease-in-out",
+          isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 h-0 overflow-hidden"
         )}>
           {sectionTitle}
         </div>
@@ -142,25 +138,38 @@ export const Sidebar = () => {
             key={item.label}
             to={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
-            className="flex flex-col p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200"
+            className={cn(
+              "flex flex-col p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              "transition-all duration-300 ease-in-out transform",
+              !isExpanded && "hover:scale-110"
+            )}
           >
             <div className="flex items-center">
-              <div className="min-w-[24px] flex justify-center">
+              <div className={cn(
+                "flex justify-center transition-all duration-300 ease-in-out",
+                isExpanded ? "min-w-[24px]" : "min-w-[100%]"
+              )}>
                 {item.icon}
               </div>
               <span
-                className={`text-sm font-medium whitespace-nowrap transition-all duration-200 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"}`}
+                className={cn(
+                  "text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out",
+                  isExpanded ? "opacity-100 ml-2 max-w-full" : "opacity-0 max-w-0 overflow-hidden ml-0"
+                )}
               >
                 {item.label}
               </span>
             </div>
             
-            {/* Description text appears only when expanded */}
-            {isExpanded && (
-              <p className="mt-1 text-xs text-sidebar-foreground/70 pl-[32px]">
-                {item.description}
-              </p>
-            )}
+            {/* Description text appears with fade-in animation when expanded */}
+            <div 
+              className={cn(
+                "mt-1 text-xs text-sidebar-foreground/70 transition-all duration-300 ease-in-out",
+                isExpanded ? "opacity-100 max-h-20 pl-[32px]" : "opacity-0 max-h-0 overflow-hidden"
+              )}
+            >
+              {item.description}
+            </div>
           </Link>
         ))}
       </div>
