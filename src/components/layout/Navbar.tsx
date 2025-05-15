@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -15,7 +14,7 @@ import {
   Award,
   Mail
 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
@@ -33,6 +32,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 type NavItem = {
   label: string;
@@ -84,7 +84,44 @@ export const Navbar = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // Added admin state
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { toast } = useToast();
+
+  // Check login status and user info on mount and when localStorage changes
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const storedUsername = localStorage.getItem("username");
+      const storedEmail = localStorage.getItem("email");
+      const admin = localStorage.getItem("isAdmin") === "true";
+
+      setIsLoggedIn(loggedIn);
+      setIsAdmin(admin);
+      
+      if (storedUsername) setUsername(storedUsername);
+      if (storedEmail) setEmail(storedEmail);
+    };
+
+    checkLoginStatus();
+
+    // Create a storage event listener to update when settings change
+    const handleStorageChange = () => {
+      checkLoginStatus();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Custom event for when settings change within the same window
+    window.addEventListener('settingsUpdated', handleStorageChange);
+
+    // Call this to check if there are already values in localStorage
+    checkLoginStatus();
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('settingsUpdated', handleStorageChange);
+    };
+  }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,20 +134,42 @@ export const Navbar = () => {
     e.preventDefault();
     // Simple mock login - in a real app, this would authenticate against a backend
     if (email && password) {
-      setIsLoggedIn(true);
-      setUsername(email.split('@')[0]); // Use part of email as username
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("username", email.split('@')[0]); // Use part of email as username
+      localStorage.setItem("email", email);
       // Set admin status based on email for demo purposes
-      setIsAdmin(email.toLowerCase().includes('admin'));
+      const isAdminUser = email.toLowerCase().includes('admin');
+      localStorage.setItem("isAdmin", isAdminUser.toString());
+      
+      setIsLoggedIn(true);
+      setUsername(email.split('@')[0]);
+      setIsAdmin(isAdminUser);
       setLoginOpen(false);
+      
+      // Notify UI components to update
+      window.dispatchEvent(new Event('settingsUpdated'));
+      
+      toast({
+        title: "Connecté",
+        description: `Bienvenue ${email.split('@')[0]}`
+      });
+      
       setEmail("");
       setPassword("");
     }
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("isAdmin");
+    // Keep the username and email in localStorage for later use
     setIsLoggedIn(false);
-    setUsername("");
     setIsAdmin(false);
+    
+    toast({
+      title: "Déconnecté",
+      description: "Vous avez été déconnecté avec succès"
+    });
   };
 
   return (
@@ -179,6 +238,7 @@ export const Navbar = () => {
                   </Avatar>
                   <div className="space-y-1">
                     <h4 className="text-sm font-semibold">{username}</h4>
+                    <p className="text-xs text-muted-foreground">{email}</p>
                     <div className="flex flex-col gap-2 pt-2">
                       <Link 
                         to="/users" 
@@ -186,13 +246,6 @@ export const Navbar = () => {
                       >
                         <User className="h-3.5 w-3.5" />
                         <span>Profil</span>
-                      </Link>
-                      <Link 
-                        to="/users_settings" 
-                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        <Settings className="h-3.5 w-3.5" />
-                        <span>Paramètres</span>
                       </Link>
                       <div 
                         className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors"

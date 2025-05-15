@@ -48,9 +48,12 @@ export const ThemeProvider = ({
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem("theme", theme);
-      setTheme(theme);
+    setTheme: (newTheme: Theme) => {
+      localStorage.setItem("theme", newTheme);
+      setTheme(newTheme);
+      
+      // Notify components that the theme has changed
+      window.dispatchEvent(new Event('settingsUpdated'));
     },
   };
 

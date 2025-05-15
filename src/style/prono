@@ -1,0 +1,13 @@
+
+/* Font size customizations */
+:root.text-sm {
+  font-size: 14px;
+}
+
+:root.text-base {
+  font-size: 16px;
+}
+
+:root.text-lg {
+  font-size: 18px;
+}
