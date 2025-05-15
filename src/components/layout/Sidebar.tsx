@@ -19,31 +19,31 @@ import { cn } from "@/lib/utils";
 const homeNavItems = [
   {
     label: "Accueil",
-    href: "/#home",
+    href: "/",
     icon: <Home size={24} />,
     description: "Retour à la page d'accueil"
   },
   {
     label: "Projets",
-    href: "/#projects",
+    href: "/projects",
     icon: <Briefcase size={24} />,
     description: "Découvrir mes projets récents"
   },
   {
     label: "Compétences",
-    href: "/#skills",
+    href: "/skills",
     icon: <Award size={24} />,
     description: "Explorer mes compétences techniques"
   },
   {
     label: "À propos",
-    href: "/#about",
+    href: "/about",
     icon: <User size={24} />,
     description: "En savoir plus sur mon parcours"
   },
   {
     label: "Contact",
-    href: "/#contact",
+    href: "/contact",
     icon: <Mail size={24} />,
     description: "Me contacter pour collaborer"
   },
@@ -94,19 +94,6 @@ export const Sidebar = () => {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-    }
-    
-    // For home page sections
-    if (location.pathname === '/' && path.includes('#')) {
-      e.preventDefault();
-      const sectionId = path.split('#')[1];
-      if (sectionId) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
       }
     }
   };

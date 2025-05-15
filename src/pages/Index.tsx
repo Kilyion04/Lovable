@@ -3,39 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ExternalLink, Star } from "lucide-react";
-
-const projects = [
-  {
-    id: 1,
-    title: "Projet E-commerce",
-    description: "Une plateforme de commerce électronique complète avec panier d'achat et paiement en ligne.",
-    tags: ["React", "Node.js", "MongoDB"],
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
-  },
-  {
-    id: 2,
-    title: "Application de Gestion",
-    description: "Un tableau de bord d'administration pour gérer les utilisateurs, les produits et les commandes.",
-    tags: ["TypeScript", "Next.js", "Prisma"],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
-  },
-  {
-    id: 3,
-    title: "Site Portfolio",
-    description: "Un site web portfolio responsive pour présenter mes projets et compétences.",
-    tags: ["React", "Tailwind CSS", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
-  },
-];
-
-const skills = [
-  { name: "HTML & CSS", level: 95 },
-  { name: "JavaScript", level: 90 },
-  { name: "React", level: 85 },
-  { name: "Node.js", level: 80 },
-  { name: "TypeScript", level: 75 },
-];
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -50,165 +19,127 @@ const Index = () => {
         </p>
         <div className="flex gap-4">
           <Button size="lg" asChild>
-            <a href="#projects">
+            <Link to="/projects">
               Voir mes projets <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <a href="#contact">Me contacter</a>
+            <Link to="/contact">Me contacter</Link>
           </Button>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Mes Projets</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Découvrez une sélection de mes travaux récents montrant mes compétences et mon expertise.
-          </p>
-        </div>
+      {/* Featured Content Previews */}
+      <section className="py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Projects Preview */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Mes Projets</CardTitle>
+              <CardDescription>Découvrez une sélection de mes travaux récents</CardDescription>
+            </CardHeader>
+            <CardContent className="h-40 overflow-hidden">
+              <div className="flex space-x-2 overflow-x-auto pb-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150"
+                  alt="Projet 1"
+                  className="w-48 h-32 object-cover rounded-md"
+                />
+                <img 
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=150"
+                  alt="Projet 2"
+                  className="w-48 h-32 object-cover rounded-md"
+                />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="ghost" asChild className="ml-auto">
+                <Link to="/projects">
+                  Tous les projets <ExternalLink className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Card key={project.id} className="overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary">{tag}</Badge>
-                  ))}
+          {/* Skills Preview */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Mes Compétences</CardTitle>
+              <CardDescription>Technologies et outils maîtrisés</CardDescription>
+            </CardHeader>
+            <CardContent className="h-40">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">React</Badge>
+                <Badge variant="secondary">TypeScript</Badge>
+                <Badge variant="secondary">Node.js</Badge>
+                <Badge variant="secondary">Tailwind CSS</Badge>
+                <Badge variant="secondary">MongoDB</Badge>
+              </div>
+              <div className="mt-4">
+                <div className="mb-2">
+                  <div className="flex justify-between text-sm">
+                    <span>JavaScript</span>
+                    <span>90%</span>
+                  </div>
+                  <div className="w-full bg-secondary rounded-full h-1.5">
+                    <div className="bg-primary rounded-full h-1.5" style={{ width: "90%" }} />
+                  </div>
                 </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="ghost" asChild className="ml-auto">
-                  <a href={`#project-${project.id}`}>
-                    Voir détails <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Mes Compétences</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Les technologies et outils avec lesquels je travaille quotidiennement.
-          </p>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="ghost" asChild className="ml-auto">
+                <Link to="/skills">
+                  Toutes les compétences <ExternalLink className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          {skills.map((skill) => (
-            <div key={skill.name} className="mb-8">
-              <div className="flex justify-between mb-2">
-                <span className="font-medium">{skill.name}</span>
-                <span>{skill.level}%</span>
-              </div>
-              <div className="w-full bg-secondary rounded-full h-2.5">
-                <div 
-                  className="bg-primary rounded-full h-2.5" 
-                  style={{ width: `${skill.level}%` }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">À propos de moi</h2>
-            <p className="mb-4">
-              Je suis un développeur web full-stack passionné par la création d'applications web modernes et intuitives.
-              Avec plusieurs années d'expérience dans le domaine, j'ai travaillé sur différents projets allant des sites vitrines aux applications web complexes.
-            </p>
-            <p className="mb-6">
-              Ma passion pour l'apprentissage continu me permet de rester à jour avec les dernières technologies et tendances du web.
-            </p>
-            <div className="flex items-center">
-              <div className="mr-4">
-                <Star className="text-yellow-500 h-5 w-5" />
-              </div>
-              <p className="text-muted-foreground">
-                "L'innovation distingue un leader d'un suiveur."
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* About Preview */}
+          <Card>
+            <CardHeader>
+              <CardTitle>À Propos</CardTitle>
+              <CardDescription>En savoir plus sur mon parcours</CardDescription>
+            </CardHeader>
+            <CardContent className="h-40">
+              <p className="line-clamp-5">
+                Je suis un développeur web full-stack passionné par la création d'applications web modernes et intuitives.
+                Avec plusieurs années d'expérience dans le domaine, j'ai travaillé sur différents projets allant des sites vitrines aux applications web complexes.
+                Ma passion pour l'apprentissage continu me permet de rester à jour avec les dernières technologies et tendances du web.
               </p>
-            </div>
-          </div>
-          <div className="aspect-square max-w-md mx-auto rounded-full overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500" 
-              alt="Profil"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
+            </CardContent>
+            <CardFooter>
+              <Button variant="ghost" asChild className="ml-auto">
+                <Link to="/about">
+                  En savoir plus <ExternalLink className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Contactez-moi</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Vous avez un projet en tête ? N'hésitez pas à me contacter pour discuter de la manière dont je peux vous aider.
-          </p>
-        </div>
-
-        <div className="max-w-md mx-auto">
-          <form className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-1">Nom</label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                  placeholder="Votre nom"
-                />
+          {/* Contact Preview */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Me Contacter</CardTitle>
+              <CardDescription>Des questions ou des projets à discuter?</CardDescription>
+            </CardHeader>
+            <CardContent className="h-40 flex items-center justify-center">
+              <Button asChild size="lg">
+                <Link to="/contact">
+                  Envoyez-moi un message <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardContent>
+            <CardFooter>
+              <div className="flex justify-between w-full text-sm text-muted-foreground">
+                <span>Email: contact@exemple.com</span>
+                <span>Tel: +33 6 12 34 56 78</span>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                  placeholder="votre@email.com"
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium mb-1">Sujet</label>
-              <input
-                type="text"
-                id="subject"
-                className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                placeholder="Sujet de votre message"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
-              <textarea
-                id="message"
-                rows={5}
-                className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                placeholder="Votre message..."
-              />
-            </div>
-            <Button type="submit" className="w-full">Envoyer le message</Button>
-          </form>
+            </CardFooter>
+          </Card>
         </div>
       </section>
     </Layout>

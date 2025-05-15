@@ -36,27 +36,27 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     label: "Accueil",
-    href: "/#home",
+    href: "/",
     icon: <Home size={18} />,
   },
   {
     label: "Projets",
-    href: "/#projects",
+    href: "/projects",
     icon: <Briefcase size={18} />,
   },
   {
     label: "Compétences",
-    href: "/#skills",
+    href: "/skills",
     icon: <Award size={18} />,
   },
   {
     label: "À propos",
-    href: "/#about",
+    href: "/about",
     icon: <User size={18} />,
   },
   {
     label: "Contact",
-    href: "/#contact",
+    href: "/contact",
     icon: <Mail size={18} />,
   },
   {
@@ -80,37 +80,6 @@ export const Navbar = () => {
     }
   };
 
-  // Function to handle home navigation
-  const handleHomeNavigation = (e: React.MouseEvent) => {
-    if (location.pathname !== '/') {
-      // We're not on the home page, let the default navigation happen
-      return;
-    }
-    
-    // We're already on the home page, just scroll to top
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Function to handle navigation to anchor links
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    // If we're not already on the home page, prevent default and use Link navigation
-    if (!location.pathname.startsWith('/')) {
-      e.preventDefault();
-      window.location.href = path;
-    } else {
-      // If we're on the home page, just scroll to the section
-      const sectionId = path.split('#')[1];
-      if (sectionId) {
-        e.preventDefault();
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }
-  };
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-10 flex flex-col border-b bg-background">
       {/* Top row with logo, search, and user controls */}
@@ -126,7 +95,7 @@ export const Navbar = () => {
             <Menu className="h-5 w-5" />
           </Button>
 
-          <Link to="/" className="flex items-center" onClick={handleHomeNavigation}>
+          <Link to="/" className="flex items-center">
             <div className="font-bold text-2xl text-primary mr-2">P</div>
             <span className="font-medium hidden sm:block">Portfolio</span>
           </Link>
@@ -212,7 +181,6 @@ export const Navbar = () => {
             <Link
               key={item.label}
               to={item.href}
-              onClick={(e) => handleNavigation(e, item.href)}
               className="flex items-center px-3 py-1.5 text-sm rounded-md hover:bg-accent transition-all duration-200"
             >
               <span className="mr-1.5">{item.icon}</span>
