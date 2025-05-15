@@ -7,12 +7,20 @@ import {
   Sun, 
   User, 
   Settings, 
-  Menu
+  Menu,
+  LogOut,
+  UserCog
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger
+} from "@/components/ui/hover-card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -84,13 +92,51 @@ export const Navbar = () => {
           )}
         </Button>
 
-        <Button variant="ghost" size="icon" aria-label="User profile">
-          <User className="h-5 w-5" />
-        </Button>
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Link to="/user">
+              <Button variant="ghost" size="icon" aria-label="User profile">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-56">
+            <div className="flex justify-between space-x-4">
+              <Avatar>
+                <AvatarFallback>UT</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">Utilisateur</h4>
+                <div className="flex flex-col gap-2 pt-2">
+                  <Link 
+                    to="/user" 
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <User className="h-3.5 w-3.5" />
+                    <span>Profil</span>
+                  </Link>
+                  <Link 
+                    to="/user_settings" 
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <UserCog className="h-3.5 w-3.5" />
+                    <span>Paramètres</span>
+                  </Link>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+                    <LogOut className="h-3.5 w-3.5" />
+                    <span>Déconnexion</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
 
-        <Button variant="ghost" size="icon" aria-label="Settings">
-          <Settings className="h-5 w-5" />
-        </Button>
+        <Link to="/user_settings">
+          <Button variant="ghost" size="icon" aria-label="Settings">
+            <Settings className="h-5 w-5" />
+          </Button>
+        </Link>
       </div>
     </nav>
   );

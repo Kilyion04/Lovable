@@ -83,7 +83,7 @@ export const Sidebar = () => {
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      style={{ transition: "background-color 0.2s ease, width 0.3s ease" }}
+      style={{ transition: "width 0.3s ease" }}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
@@ -91,13 +91,13 @@ export const Sidebar = () => {
             key={item.label}
             to={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
-            className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-300"
+            className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200"
           >
             <div className="min-w-[24px] flex justify-center">
               {item.icon}
             </div>
             <span
-              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
+              className={`text-sm font-medium whitespace-nowrap transition-all duration-200 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
                 }`}
             >
               {item.label}
