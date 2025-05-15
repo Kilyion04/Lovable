@@ -94,7 +94,7 @@ export const Navbar = () => {
 
         <HoverCard>
           <HoverCardTrigger asChild>
-            <Link to="/user">
+            <Link to="/users">
               <Button variant="ghost" size="icon" aria-label="User profile">
                 <User className="h-5 w-5" />
               </Button>
@@ -109,14 +109,14 @@ export const Navbar = () => {
                 <h4 className="text-sm font-semibold">Utilisateur</h4>
                 <div className="flex flex-col gap-2 pt-2">
                   <Link 
-                    to="/user" 
+                    to="/users" 
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <User className="h-3.5 w-3.5" />
                     <span>Profil</span>
                   </Link>
                   <Link 
-                    to="/user_settings" 
+                    to="/users_settings" 
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <UserCog className="h-3.5 w-3.5" />
@@ -132,7 +132,7 @@ export const Navbar = () => {
           </HoverCardContent>
         </HoverCard>
 
-        <Link to="/user_settings">
+        <Link to="/users_settings">
           <Button variant="ghost" size="icon" aria-label="Settings">
             <Settings className="h-5 w-5" />
           </Button>
