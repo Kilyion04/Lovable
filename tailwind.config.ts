@@ -111,16 +111,6 @@ export default {
 					'0%': { transform: 'scaleX(0)' },
 					'70%': { transform: 'scaleX(1.1)' },
 					'100%': { transform: 'scaleX(1)' }
-				},
-				'elastic-left-right': {
-					'0%': { transform: 'scaleX(0.5)', transformOrigin: 'left' },
-					'70%': { transform: 'scaleX(1.03)', transformOrigin: 'left' },
-					'100%': { transform: 'scaleX(1)', transformOrigin: 'left' }
-				},
-				'elastic-right-left': {
-					'0%': { transform: 'scaleX(0.5)', transformOrigin: 'right' },
-					'70%': { transform: 'scaleX(1.03)', transformOrigin: 'right' },
-					'100%': { transform: 'scaleX(1)', transformOrigin: 'right' }
 				}
 			},
 			animation: {
@@ -129,9 +119,7 @@ export default {
 				'slide-in': 'slide-in 0.3s ease-out',
 				'slide-out': 'slide-out 0.3s ease-out',
 				'bounce-in': 'bounce-in 0.5s ease-out',
-				'elastic-x': 'elastic-x 0.5s ease-out',
-				'elastic-left-right': 'elastic-left-right 0.5s ease-out',
-				'elastic-right-left': 'elastic-right-left 0.5s ease-out'
+				'elastic-x': 'elastic-x 0.5s ease-out'
 			},
 			transitionTimingFunction: {
 				'elastic': 'cubic-bezier(0.32, 1.25, 0.375, 1.15)'

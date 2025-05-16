@@ -1,6 +1,6 @@
 
 import { Layout } from "@/components/layout/Layout";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -104,56 +104,12 @@ const skillsByCategory = skillsData.reduce((acc, skill) => {
 
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const tabsListRef = useRef<HTMLDivElement>(null);
-  const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 });
-  const [prevActiveTab, setPrevActiveTab] = useState<HTMLElement | null>(null);
   
   const displayedSkills = selectedCategory === "all" 
     ? skillsData
     : skillsData.filter(skill => skill.category === selectedCategory);
 
   const categories = ["all", ...Object.keys(skillsByCategory)];
-
-  // Update the indicator position when tab changes
-  useEffect(() => {
-    updateActiveIndicator();
-  }, [selectedCategory]);
-
-  // Also update on initial render and window resize
-  useEffect(() => {
-    updateActiveIndicator(true);
-    window.addEventListener('resize', () => updateActiveIndicator(true));
-    return () => window.removeEventListener('resize', () => updateActiveIndicator(true));
-  }, []);
-
-  // This updates the indicator position to the currently active tab
-  const updateActiveIndicator = (directUpdate = false) => {
-    const tabsList = tabsListRef.current;
-    if (!tabsList) return;
-
-    const activeTab = tabsList.querySelector(`[data-state="active"]`) as HTMLElement;
-    
-    if (activeTab) {
-      const { left: tabsLeft } = tabsList.getBoundingClientRect();
-      const { left: itemLeft, width } = activeTab.getBoundingClientRect();
-      
-      // Animate the indicator
-      setActiveIndicator({
-        left: itemLeft - tabsLeft,
-        width
-      });
-
-      // Store the previous active tab for next tab change
-      if (!directUpdate) {
-        setPrevActiveTab(activeTab);
-      }
-    }
-  };
-
-  // Handle tab change
-  const handleTabChange = (value: string) => {
-    setSelectedCategory(value);
-  };
   
   return (
     <Layout>
@@ -165,37 +121,19 @@ const Skills = () => {
           </p>
         </div>
 
-        <Tabs 
-          defaultValue="all" 
-          value={selectedCategory} 
-          onValueChange={handleTabChange} 
-          className="max-w-4xl mx-auto mb-12"
-        >
+        <Tabs defaultValue="all" value={selectedCategory} onValueChange={setSelectedCategory} className="max-w-4xl mx-auto mb-12">
           <div className="flex justify-center mb-8">
-            <div className="relative">
-              <TabsList ref={tabsListRef} className="relative z-10">
-                {categories.map((category) => (
-                  <TabsTrigger key={category} value={category}>
-                    {category === "all" ? "Toutes les compétences" : category}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              
-              {/* Active indicator for tabs */}
-              <div 
-                className="absolute h-full bg-primary/15 rounded-md transition-all duration-300 ease-elastic"
-                style={{
-                  left: `${activeIndicator.left}px`,
-                  width: `${activeIndicator.width}px`,
-                  top: '0',
-                  pointerEvents: 'none'
-                }}
-              />
-            </div>
+            <TabsList>
+              {categories.map((category) => (
+                <TabsTrigger key={category} value={category}>
+                  {category === "all" ? "Toutes les compétences" : category}
+                </TabsTrigger>
+              ))}
+            </TabsList>
           </div>
           
           {categories.map((category) => (
-            <TabsContent key={category} value={category} className="space-y-8 animate-elastic-x" style={{ transformOrigin: 'left' }}>
+            <TabsContent key={category} value={category} className="space-y-8">
               <div className="max-w-3xl mx-auto">
                 {displayedSkills.map((skill) => (
                   <Card key={skill.name} className="mb-8">
