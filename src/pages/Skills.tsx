@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/layout/Layout";
 import { useState, useEffect, useRef } from "react";
 import { Progress } from "@/components/ui/progress";
@@ -118,26 +117,6 @@ const Skills = () => {
     setPrevCategory(selectedCategory);
     setSelectedCategory(value);
   };
-
-  // Apply background element with sticky animation
-  useEffect(() => {
-    if (tabsListRef.current) {
-      const prevTrigger = tabsListRef.current.querySelector(`[value="${prevCategory}"]`);
-      const currentTrigger = tabsListRef.current.querySelector(`[value="${selectedCategory}"]`);
-      
-      if (prevTrigger && currentTrigger) {
-        // Get positions for animation
-        const prevLeft = prevTrigger.getBoundingClientRect().left - 
-                        tabsListRef.current.getBoundingClientRect().left;
-        const currentLeft = currentTrigger.getBoundingClientRect().left - 
-                          tabsListRef.current.getBoundingClientRect().left;
-        
-        // Set CSS variables for the animation
-        document.documentElement.style.setProperty('--slide-start', `${prevLeft}px`);
-        document.documentElement.style.setProperty('--slide-end', `${currentLeft}px`);
-      }
-    }
-  }, [selectedCategory, prevCategory]);
   
   return (
     <Layout>

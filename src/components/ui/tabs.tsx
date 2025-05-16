@@ -4,7 +4,52 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
 
-const Tabs = TabsPrimitive.Root
+// Create a context to track tab positions
+const TabsPositionContext = React.createContext<{
+  registerTabPosition: (id: string, left: number, width: number) => void;
+}>({
+  registerTabPosition: () => {},
+})
+
+const Tabs = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
+>(({ className, ...props }, ref) => {
+  // Track positions of tabs
+  const [tabPositions, setTabPositions] = React.useState<Record<string, {left: number, width: number}>>({})
+  
+  const registerTabPosition = React.useCallback((id: string, left: number, width: number) => {
+    setTabPositions(prev => ({
+      ...prev,
+      [id]: { left, width }
+    }))
+  }, [])
+  
+  // Set CSS variables for animation when value changes
+  React.useEffect(() => {
+    if (props.value && tabPositions[props.value]) {
+      document.documentElement.style.setProperty(
+        `--tabs-trigger-${props.value}-left`, 
+        `${tabPositions[props.value].left}px`
+      )
+      document.documentElement.style.setProperty(
+        `--tabs-trigger-${props.value}-width`, 
+        `${tabPositions[props.value].width}px`
+      )
+    }
+  }, [props.value, tabPositions])
+  
+  return (
+    <TabsPositionContext.Provider value={{ registerTabPosition }}>
+      <TabsPrimitive.Root
+        ref={ref}
+        className={cn(className)}
+        {...props}
+      />
+    </TabsPositionContext.Provider>
+  )
+})
+Tabs.displayName = TabsPrimitive.Root.displayName
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -25,24 +70,25 @@ const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
 >(({ className, ...props }, ref) => {
-  // Get access to the parent Tabs context
-  const tabsContext = TabsPrimitive.useRootContext()
   const triggerRef = React.useRef<HTMLButtonElement>(null)
+  const { registerTabPosition } = React.useContext(TabsPositionContext)
   
   // Store the position of this trigger for animation
   React.useEffect(() => {
     if (triggerRef.current && props.value && typeof props.value === 'string') {
-      // Store this element's position for animations
-      document.documentElement.style.setProperty(
-        `--tabs-trigger-${props.value}-left`, 
-        `${triggerRef.current.offsetLeft}px`
-      )
-      document.documentElement.style.setProperty(
-        `--tabs-trigger-${props.value}-width`, 
-        `${triggerRef.current.offsetWidth}px`
-      )
+      const parentList = triggerRef.current.closest('[role="tablist"]');
+      if (parentList) {
+        // Get position relative to the parent TabsList
+        const parentRect = parentList.getBoundingClientRect();
+        const triggerRect = triggerRef.current.getBoundingClientRect();
+        const left = triggerRect.left - parentRect.left;
+        const width = triggerRect.width;
+        
+        // Register this tab's position
+        registerTabPosition(props.value, left, width);
+      }
     }
-  }, [props.value, tabsContext.orientation])
+  }, [props.value, registerTabPosition]);
   
   return (
     <TabsPrimitive.Trigger
@@ -80,4 +126,3 @@ const TabsContent = React.forwardRef<
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
 export { Tabs, TabsList, TabsTrigger, TabsContent }
-
