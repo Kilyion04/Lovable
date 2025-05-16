@@ -3,8 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ExternalLink, Star, Code, User, FileText } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ArrowRight, ExternalLink, Star } from "lucide-react";
 
 const projects = [
   {
@@ -34,26 +33,9 @@ const skills = [
   { name: "HTML & CSS", level: 95 },
   { name: "JavaScript", level: 90 },
   { name: "React", level: 85 },
+  { name: "Node.js", level: 80 },
   { name: "TypeScript", level: 75 },
 ];
-
-// Get most recently used skills (would be replaced with actual data in a real app)
-const recentSkills = [
-  { name: "Vue.js", level: 65, date: "2024-04" },
-  { name: "MongoDB", level: 75, date: "2024-04" },
-  { name: "Tailwind CSS", level: 90, date: "2024-03" },
-  { name: "TypeScript", level: 75, date: "2024-03" },
-];
-
-// Get latest project (would be replaced with actual data sorting in a real app)
-const latestProject = {
-  id: 5,
-  title: "Plateforme Éducative",
-  description: "Une plateforme en ligne pour suivre des cours et des formations.",
-  tags: ["Vue.js", "Express", "MongoDB"],
-  image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350",
-  date: "2024-04"
-};
 
 const Index = () => {
   return (
@@ -66,125 +48,90 @@ const Index = () => {
         <p className="text-xl text-muted-foreground max-w-2xl mb-10">
           Développeur web passionné créant des expériences numériques modernes et intuitives avec les dernières technologies.
         </p>
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex gap-4">
           <Button size="lg" asChild>
-            <Link to="/project">
+            <a href="#projects">
               Voir mes projets <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            </a>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <Link to="/contact">Me contacter</Link>
+            <a href="#contact">Me contacter</a>
           </Button>
         </div>
       </section>
 
-      {/* Latest Project Section */}
-      <section id="latest-project" className="py-20">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center">
-            <FileText className="h-6 w-6 mr-2 text-primary" />
-            <h2 className="text-3xl font-bold">Dernier Projet</h2>
-          </div>
-          <Button variant="outline" asChild>
-            <Link to="/project">
-              Tous les projets <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+      {/* Projects Section */}
+      <section id="projects" className="py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Mes Projets</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Découvrez une sélection de mes travaux récents montrant mes compétences et mon expertise.
+          </p>
         </div>
 
-        <Card className="overflow-hidden">
-          <div className="md:flex">
-            <div className="md:w-1/2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <Card key={project.id} className="overflow-hidden">
               <img 
-                src={latestProject.image} 
-                alt={latestProject.title}
-                className="w-full h-full object-cover"
+                src={project.image} 
+                alt={project.title}
+                className="w-full h-48 object-cover"
               />
-            </div>
-            <div className="md:w-1/2 p-6">
-              <h3 className="text-2xl font-bold mb-4">{latestProject.title}</h3>
-              <p className="mb-6 text-muted-foreground">{latestProject.description}</p>
-              
-              <div className="mb-6">
-                <h4 className="text-sm font-medium mb-2">Technologies utilisées:</h4>
+              <CardHeader>
+                <CardTitle>{project.title}</CardTitle>
+                <CardDescription>{project.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {latestProject.tags.map((tag) => (
+                  {project.tags.map((tag) => (
                     <Badge key={tag} variant="secondary">{tag}</Badge>
                   ))}
                 </div>
-              </div>
-              
-              <div className="mb-6">
-                <h4 className="text-sm font-medium mb-2">Date:</h4>
-                <p>{new Date(latestProject.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}</p>
-              </div>
-              
-              <Button asChild>
-                <Link to={`/project#project-${latestProject.id}`}>
-                  Voir ce projet <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </Card>
-      </section>
-
-      {/* Recent Skills Section */}
-      <section id="recent-skills" className="py-20">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center">
-            <Code className="h-6 w-6 mr-2 text-primary" />
-            <h2 className="text-3xl font-bold">Compétences Récentes</h2>
-          </div>
-          <Button variant="outline" asChild>
-            <Link to="/skills">
-              Toutes mes compétences <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {recentSkills.map((skill) => (
-            <Card key={skill.name} className="overflow-hidden">
-              <CardHeader>
-                <CardTitle>{skill.name}</CardTitle>
-                <CardDescription>
-                  Dernière utilisation: {new Date(skill.date).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex justify-between mb-2">
-                  <span className="font-medium">Niveau</span>
-                  <span>{skill.level}%</span>
-                </div>
-                <div className="w-full bg-secondary rounded-full h-2.5">
-                  <div 
-                    className="bg-primary rounded-full h-2.5" 
-                    style={{ width: `${skill.level}%` }}
-                  />
-                </div>
               </CardContent>
+              <CardFooter>
+                <Button variant="ghost" asChild className="ml-auto">
+                  <a href={`#project-${project.id}`}>
+                    Voir détails <ExternalLink className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+              </CardFooter>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* About Section Preview */}
-      <section id="about" className="py-20">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center">
-            <User className="h-6 w-6 mr-2 text-primary" />
-            <h2 className="text-3xl font-bold">À propos de moi</h2>
-          </div>
-          <Button variant="outline" asChild>
-            <Link to="/about">
-              En apprendre plus sur moi <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+      {/* Skills Section */}
+      <section id="skills" className="py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Mes Compétences</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Les technologies et outils avec lesquels je travaille quotidiennement.
+          </p>
         </div>
 
+        <div className="max-w-3xl mx-auto">
+          {skills.map((skill) => (
+            <div key={skill.name} className="mb-8">
+              <div className="flex justify-between mb-2">
+                <span className="font-medium">{skill.name}</span>
+                <span>{skill.level}%</span>
+              </div>
+              <div className="w-full bg-secondary rounded-full h-2.5">
+                <div 
+                  className="bg-primary rounded-full h-2.5" 
+                  style={{ width: `${skill.level}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
+            <h2 className="text-3xl font-bold mb-6">À propos de moi</h2>
             <p className="mb-4">
               Je suis un développeur web full-stack passionné par la création d'applications web modernes et intuitives.
               Avec plusieurs années d'expérience dans le domaine, j'ai travaillé sur différents projets allant des sites vitrines aux applications web complexes.
@@ -208,6 +155,60 @@ const Index = () => {
               className="w-full h-full object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Contactez-moi</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Vous avez un projet en tête ? N'hésitez pas à me contacter pour discuter de la manière dont je peux vous aider.
+          </p>
+        </div>
+
+        <div className="max-w-md mx-auto">
+          <form className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-1">Nom</label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                  placeholder="Votre nom"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                  placeholder="votre@email.com"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium mb-1">Sujet</label>
+              <input
+                type="text"
+                id="subject"
+                className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                placeholder="Sujet de votre message"
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
+              <textarea
+                id="message"
+                rows={5}
+                className="w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                placeholder="Votre message..."
+              />
+            </div>
+            <Button type="submit" className="w-full">Envoyer le message</Button>
+          </form>
         </div>
       </section>
     </Layout>

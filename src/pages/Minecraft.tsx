@@ -3,38 +3,13 @@ import { Layout } from "@/components/layout/Layout";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Gamepad, Server } from "lucide-react";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
 
 const Minecraft = () => {
-    const [selectedServer, setSelectedServer] = useState("survival");
-
-    const servers = [
-        {
-            id: "survival",
-            name: "Serveur Survie",
-            version: "1.20.4",
-            description: "Un monde ouvert où vous pouvez construire, explorer, et survivre avec d'autres joueurs.",
-        },
-        {
-            id: "creative",
-            name: "Serveur Créatif",
-            version: "1.20.4",
-            description: "Libérez votre créativité dans un environnement sans limites de ressources.",
-        },
-        {
-            id: "minigames",
-            name: "Serveur Mini-jeux",
-            version: "1.20.2",
-            description: "Une collection de mini-jeux amusants à jouer avec vos amis.",
-        }
-    ];
-
     return (
         <Layout>
             <div className="py-8 md:py-12">
                 <div className="container mx-auto px-4">
-                    <section className="mb-12" id="servers">
+                    <section className="mb-12">
                         <div className="flex items-center mb-6">
                             <Gamepad className="h-8 w-8 mr-3 text-primary" />
                             <h1 className="text-3xl md:text-4xl font-bold">Gestion de Serveur Minecraft</h1>
@@ -48,26 +23,21 @@ const Minecraft = () => {
                                 </p>
                                 
                                 <div className="bg-card rounded-lg p-6 shadow-sm border">
-                                    <h2 className="text-xl font-semibold mb-4">Choisissez votre serveur</h2>
-                                    <RadioGroup 
-                                        value={selectedServer} 
-                                        onValueChange={setSelectedServer}
-                                        className="space-y-4"
-                                    >
-                                        {servers.map(server => (
-                                            <div key={server.id} className={`flex items-start space-x-3 p-3 rounded-md transition-colors ${selectedServer === server.id ? 'bg-muted' : ''}`}>
-                                                <RadioGroupItem value={server.id} id={server.id} className="mt-1" />
-                                                <div>
-                                                    <label htmlFor={server.id} className="flex items-center cursor-pointer font-medium">
-                                                        <Server className="h-5 w-5 mr-2 text-primary" />
-                                                        {server.name}
-                                                    </label>
-                                                    <p className="text-sm mt-1">Version: {server.version}</p>
-                                                    <p className="text-sm text-muted-foreground mt-1">{server.description}</p>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </RadioGroup>
+                                    <div className="flex items-center mb-4">
+                                        <Server className="h-5 w-5 mr-2 text-primary" />
+                                        <h3 className="text-xl font-medium">Serveur Survie</h3>
+                                    </div>
+                                    <p className="mb-2">Version: 1.20.4</p>
+                                    <p className="text-muted-foreground">Un monde ouvert où vous pouvez construire, explorer, et survivre avec d'autres joueurs.</p>
+                                </div>
+                                
+                                <div className="bg-card rounded-lg p-6 shadow-sm border">
+                                    <div className="flex items-center mb-4">
+                                        <Server className="h-5 w-5 mr-2 text-primary" />
+                                        <h3 className="text-xl font-medium">Serveur Créatif</h3>
+                                    </div>
+                                    <p className="mb-2">Version: 1.20.4</p>
+                                    <p className="text-muted-foreground">Libérez votre créativité dans un environnement sans limites de ressources.</p>
                                 </div>
                             </div>
                             
@@ -118,8 +88,6 @@ const Minecraft = () => {
                                         </select>
                                     </div>
                                     
-                                    <div className="font-medium mb-2">Serveur sélectionné: {servers.find(s => s.id === selectedServer)?.name}</div>
-                                    
                                     <button type="submit" className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors w-full">
                                         Envoyer la demande
                                     </button>
@@ -128,7 +96,7 @@ const Minecraft = () => {
                         </div>
                     </section>
                     
-                    <section className="bg-card rounded-lg p-6 shadow-sm border" id="rules">
+                    <section className="bg-card rounded-lg p-6 shadow-sm border">
                         <h2 className="text-2xl font-semibold mb-4">Règles du serveur</h2>
                         <ul className="list-disc pl-5 space-y-2">
                             <li>Respectez tous les joueurs</li>

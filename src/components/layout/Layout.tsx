@@ -1,11 +1,10 @@
 
-import { ReactNode, useContext, useEffect } from "react";
+import { ReactNode, useContext } from "react";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { Footer } from "./Footer";
 import { ThemeProvider } from "../theme/ThemeProvider";
 import { SidebarContext, SidebarProvider } from "./SidebarContext";
-import { useLocation } from "react-router-dom";
 
 type LayoutContentProps = {
   children: ReactNode;
@@ -13,17 +12,11 @@ type LayoutContentProps = {
 
 const LayoutContent = ({ children }: LayoutContentProps) => {
   const { isExpanded } = useContext(SidebarContext);
-  const location = useLocation();
-
-  // This effect will scroll to top when route changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex flex-1 pt-[97px]">
+      <div className="flex flex-1 pt-[61px]">
         <Sidebar />
         <main className={`flex-1 w-full transition-all duration-300 ${isExpanded ? 'lg:ml-64' : 'lg:ml-16'}`}>
           <div className="container mx-auto px-4 py-8">
