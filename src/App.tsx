@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import SearchResults from "./pages/SearchResults";
 import Minecraft from "./pages/Minecraft";
 import Prono from "./pages/Prono";
 import Users from "./pages/User";
@@ -26,6 +27,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="/minecraft" element={<Minecraft />} />
           <Route path="/prono" element={<Prono />} />
           <Route path="/users" element={<Users />} />

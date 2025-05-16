@@ -1,6 +1,8 @@
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { 
+  Search, 
   Moon, 
   Sun, 
   User, 
@@ -14,13 +16,37 @@ import {
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
+import { useToast } from "@/hooks/use-toast";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { toggleSidebar } = useContext(SidebarContext);
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Trim the search value and check if it's empty
+    const trimmedSearch = searchValue.trim();
+    
+    if (!trimmedSearch) {
+      // Show a toast notification if the search is empty
+      toast({
+        title: "Recherche vide",
+        description: "Veuillez saisir un terme de recherche",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Navigate to search results with the valid query
+    navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`);
+  };
 
   // Function to handle home navigation
   const handleHomeNavigation = (e: React.MouseEvent) => {
@@ -58,6 +84,19 @@ export const Navbar = () => {
             <span className="font-medium hidden sm:block">Portfolio</span>
           </Link>
         </div>
+
+        <form onSubmit={handleSearchSubmit} className="flex-1 max-w-4xl mx-4">
+          <div className="relative w-full">
+            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input
+              type="search"
+              placeholder="Rechercher..."
+              className="pl-8 w-full bg-background"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
+        </form>
 
         <div className="flex items-center space-x-2">
           <Button 
