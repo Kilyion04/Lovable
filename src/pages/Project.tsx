@@ -132,7 +132,7 @@ const Project = () => {
                 <SelectValue placeholder="Toutes les technologies" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Toutes les technologies</SelectItem>
+                <SelectItem value="all">Toutes les technologies</SelectItem>
                 {allTags.map(tag => (
                   <SelectItem key={tag} value={tag}>{tag}</SelectItem>
                 ))}
@@ -147,7 +147,7 @@ const Project = () => {
                 <SelectValue placeholder="Toutes les dates" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Toutes les dates</SelectItem>
+                <SelectItem value="all">Toutes les dates</SelectItem>
                 {allDates.map(([value, label]) => (
                   <SelectItem key={value} value={value}>{label}</SelectItem>
                 ))}
