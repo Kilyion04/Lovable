@@ -168,18 +168,21 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center space-x-2">
-          <form onSubmit={handleSearchSubmit} className="relative items-center max-w-xs hidden md:flex">
-            <Search className="absolute left-2 h-4 w-4 text-muted-foreground pointer-events-none" />
+        {/* Centered search form that takes most of the width */}
+        <form onSubmit={handleSearchSubmit} className="flex-1 mx-4 max-w-3xl">
+          <div className="relative w-full flex items-center">
+            <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none" />
             <Input
               type="search"
               placeholder="Rechercher..."
-              className="pl-8 w-full bg-background"
+              className="w-full pl-9 bg-background"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
-          </form>
+          </div>
+        </form>
 
+        <div className="flex items-center space-x-2">
           <Button 
             variant="ghost" 
             size="icon"
