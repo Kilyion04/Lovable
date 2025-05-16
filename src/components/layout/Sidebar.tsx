@@ -3,12 +3,10 @@ import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Home,
   Briefcase,
   Award,
   User,
-  Mail,
-  Gamepad
+  Mail
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,11 +17,6 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  {
-    label: "Accueil",
-    href: "/#home",
-    icon: <Home size={24} />,
-  },
   {
     label: "Projets",
     href: "/#projects",
@@ -43,11 +36,6 @@ const navItems: NavItem[] = [
     label: "Contact",
     href: "/#contact",
     icon: <Mail size={24} />,
-  },
-  {
-    label: "Minecraft",
-    href: "/minecraft",
-    icon: <Gamepad size={24} />,
   }
 ];
 
