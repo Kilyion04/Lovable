@@ -8,7 +8,11 @@ import {
   Award,
   User,
   Mail,
-  Gamepad
+  Gamepad,
+  Code,
+  FileText,
+  Info,
+  Contact
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -21,28 +25,28 @@ type NavItem = {
 const navItems: NavItem[] = [
   {
     label: "Accueil",
-    href: "/#home",
+    href: "/",
     icon: <Home size={24} />,
   },
   {
     label: "Projets",
-    href: "/#projects",
-    icon: <Briefcase size={24} />,
+    href: "/project",
+    icon: <FileText size={24} />,
   },
   {
     label: "Compétences",
-    href: "/#skills",
-    icon: <Award size={24} />,
+    href: "/skills",
+    icon: <Code size={24} />,
   },
   {
     label: "À propos",
-    href: "/#about",
-    icon: <User size={24} />,
+    href: "/about",
+    icon: <Info size={24} />,
   },
   {
     label: "Contact",
-    href: "/#contact",
-    icon: <Mail size={24} />,
+    href: "/contact",
+    icon: <Contact size={24} />,
   },
   {
     label: "Minecraft",
@@ -55,23 +59,12 @@ export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
   const location = useLocation();
 
-  // Function to handle navigation to anchor links
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    // If we're not already on the home page, prevent default and use Link navigation
-    if (!location.pathname.startsWith('/')) {
-      e.preventDefault();
-      window.location.href = path;
-    } else {
-      // If we're on the home page, just scroll to the section
-      const sectionId = path.split('#')[1];
-      if (sectionId) {
-        e.preventDefault();
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
+  // Function to handle navigation
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
     }
+    return location.pathname.startsWith(path);
   };
 
   return (
@@ -90,8 +83,12 @@ export const Sidebar = () => {
           <Link
             key={item.label}
             to={item.href}
-            onClick={(e) => handleNavigation(e, item.href)}
-            className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200"
+            className={cn(
+              "flex items-center p-2 rounded-md transition-all duration-200",
+              isActive(item.href)
+                ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            )}
           >
             <div className="min-w-[24px] flex justify-center">
               {item.icon}

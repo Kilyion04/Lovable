@@ -9,9 +9,13 @@ import NotFound from "./pages/NotFound";
 import SearchResults from "./pages/SearchResults";
 import Minecraft from "./pages/Minecraft";
 import Prono from "./pages/Prono";
-import Users from "./pages/User"
+import Users from "./pages/User";
 import UserSettings from "./pages/User_settings";
 import DataManagement from "./pages/Data";
+import Project from "./pages/Project";
+import Skills from "./pages/Skills";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +33,10 @@ const App = () => (
           <Route path="/users" element={<Users />} />
           <Route path="/users_settings" element={<UserSettings />} />
           <Route path="/data" element={<DataManagement />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
