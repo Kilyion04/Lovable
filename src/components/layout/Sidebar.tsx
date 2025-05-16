@@ -193,7 +193,7 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-300",
+        "fixed top-[97px] left-0 z-[5] h-[calc(100vh-97px)] bg-sidebar border-r transition-all duration-300",
         "lg:translate-x-0",
         isExpanded ? "w-64" : "w-16"
       )}

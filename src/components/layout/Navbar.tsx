@@ -102,112 +102,117 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-3 border-b bg-background">
-      <div className="flex items-center">
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="mr-4 lg:hidden" 
-          onClick={() => toggleSidebar()}
-          aria-label="Toggle sidebar"
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
-
-        <Link to="/" className="flex items-center" onClick={handleHomeNavigation}>
-          <div className="font-bold text-2xl text-primary mr-2">P</div>
-          <span className="font-medium hidden sm:block">Portfolio</span>
-        </Link>
-      </div>
-
-      {/* Main Navigation */}
-      <div className="hidden md:flex items-center space-x-1">
-        {mainNavItems.map((item) => (
-          <Link 
-            key={item.label}
-            to={item.href}
-            className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
-              isActive(item.href) 
-                ? "bg-primary/10 text-primary" 
-                : "hover:bg-accent hover:text-accent-foreground"
-            }`}
+    <nav className="fixed top-0 left-0 right-0 z-10 flex flex-col bg-background border-b">
+      {/* Top bar with logo, search, and user controls */}
+      <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="mr-4 lg:hidden" 
+            onClick={() => toggleSidebar()}
+            aria-label="Toggle sidebar"
           >
-            {item.icon}
-            <span className="ml-2">{item.label}</span>
+            <Menu className="h-5 w-5" />
+          </Button>
+
+          <Link to="/" className="flex items-center" onClick={handleHomeNavigation}>
+            <div className="font-bold text-2xl text-primary mr-2">P</div>
+            <span className="font-medium hidden sm:block">Portfolio</span>
           </Link>
-        ))}
-      </div>
+        </div>
 
-      <div className="flex items-center space-x-2">
-        <form onSubmit={handleSearchSubmit} className="hidden md:flex relative items-center max-w-xs">
-          <Search className="absolute left-2 h-4 w-4 text-muted-foreground pointer-events-none" />
-          <Input
-            type="search"
-            placeholder="Rechercher..."
-            className="pl-8 w-full bg-background"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
-        </form>
+        <div className="flex items-center space-x-2">
+          <form onSubmit={handleSearchSubmit} className="relative items-center max-w-xs hidden md:flex">
+            <Search className="absolute left-2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input
+              type="search"
+              placeholder="Rechercher..."
+              className="pl-8 w-full bg-background"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </form>
 
-        <Button 
-          variant="ghost" 
-          size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          aria-label="Toggle theme"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          )}
-        </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button>
 
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <Link to="/users">
-              <Button variant="ghost" size="icon" aria-label="User profile">
-                <User className="h-5 w-5" />
-              </Button>
-            </Link>
-          </HoverCardTrigger>
-          <HoverCardContent className="w-56">
-            <div className="flex justify-between space-x-4">
-              <Avatar>
-                <AvatarFallback>UT</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold">Utilisateur</h4>
-                <div className="flex flex-col gap-2 pt-2">
-                  <Link 
-                    to="/users" 
-                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <User className="h-3.5 w-3.5" />
-                    <span>Profil</span>
-                  </Link>
-                  <Link 
-                    to="/users_settings" 
-                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <UserCog className="h-3.5 w-3.5" />
-                    <span>Paramètres</span>
-                  </Link>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-                    <LogOut className="h-3.5 w-3.5" />
-                    <span>Déconnexion</span>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Link to="/users">
+                <Button variant="ghost" size="icon" aria-label="User profile">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-56">
+              <div className="flex justify-between space-x-4">
+                <Avatar>
+                  <AvatarFallback>UT</AvatarFallback>
+                </Avatar>
+                <div className="space-y-1">
+                  <h4 className="text-sm font-semibold">Utilisateur</h4>
+                  <div className="flex flex-col gap-2 pt-2">
+                    <Link 
+                      to="/users" 
+                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <User className="h-3.5 w-3.5" />
+                      <span>Profil</span>
+                    </Link>
+                    <Link 
+                      to="/users_settings" 
+                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <UserCog className="h-3.5 w-3.5" />
+                      <span>Paramètres</span>
+                    </Link>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
+                      <LogOut className="h-3.5 w-3.5" />
+                      <span>Déconnexion</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </HoverCardContent>
-        </HoverCard>
+            </HoverCardContent>
+          </HoverCard>
 
-        <Link to="/users_settings">
-          <Button variant="ghost" size="icon" aria-label="Settings">
-            <Settings className="h-5 w-5" />
-          </Button>
-        </Link>
+          <Link to="/users_settings">
+            <Button variant="ghost" size="icon" aria-label="Settings">
+              <Settings className="h-5 w-5" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Navigation - moved below the top bar */}
+      <div className="flex justify-center px-4 py-1 border-t overflow-x-auto">
+        <div className="flex space-x-1">
+          {mainNavItems.map((item) => (
+            <Link 
+              key={item.label}
+              to={item.href}
+              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                isActive(item.href) 
+                  ? "bg-primary/10 text-primary" 
+                  : "hover:bg-accent hover:text-accent-foreground"
+              }`}
+            >
+              {item.icon}
+              <span className="ml-2">{item.label}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </nav>
   );
