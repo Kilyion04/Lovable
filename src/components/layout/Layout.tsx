@@ -22,9 +22,9 @@ const LayoutContent = ({ children }: LayoutContentProps) => {
           <div className="container mx-auto px-4 py-8">
             {children}
           </div>
+          <Footer />
         </main>
       </div>
-      <Footer />
     </div>
   );
 };
