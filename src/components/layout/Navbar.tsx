@@ -9,7 +9,11 @@ import {
   Settings, 
   Menu,
   LogOut,
-  UserCog
+  UserCog,
+  Home,
+  FileText,
+  Code,
+  Info
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -21,6 +25,45 @@ import {
   HoverCardTrigger
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+type NavItem = {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+};
+
+const mainNavItems: NavItem[] = [
+  {
+    label: "Accueil",
+    href: "/",
+    icon: <Home className="h-4 w-4" />,
+  },
+  {
+    label: "Projets",
+    href: "/project",
+    icon: <FileText className="h-4 w-4" />,
+  },
+  {
+    label: "Compétences",
+    href: "/skills",
+    icon: <Code className="h-4 w-4" />,
+  },
+  {
+    label: "À propos",
+    href: "/about",
+    icon: <Info className="h-4 w-4" />,
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+    icon: <Mail className="h-4 w-4" />,
+  },
+  {
+    label: "Minecraft",
+    href: "/minecraft",
+    icon: <Gamepad className="h-4 w-4" />,
+  }
+];
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -48,6 +91,14 @@ export const Navbar = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Function to check if a nav item is active
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-3 border-b bg-background">
       <div className="flex items-center">
@@ -67,18 +118,36 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <form onSubmit={handleSearchSubmit} className="hidden md:flex relative items-center max-w-md flex-1 mx-4">
-        <Search className="absolute left-2 h-4 w-4 text-muted-foreground pointer-events-none" />
-        <Input
-          type="search"
-          placeholder="Rechercher..."
-          className="pl-8 w-full bg-background"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-      </form>
+      {/* Main Navigation */}
+      <div className="hidden md:flex items-center space-x-1">
+        {mainNavItems.map((item) => (
+          <Link 
+            key={item.label}
+            to={item.href}
+            className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+              isActive(item.href) 
+                ? "bg-primary/10 text-primary" 
+                : "hover:bg-accent hover:text-accent-foreground"
+            }`}
+          >
+            {item.icon}
+            <span className="ml-2">{item.label}</span>
+          </Link>
+        ))}
+      </div>
 
       <div className="flex items-center space-x-2">
+        <form onSubmit={handleSearchSubmit} className="hidden md:flex relative items-center max-w-xs">
+          <Search className="absolute left-2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <Input
+            type="search"
+            placeholder="Rechercher..."
+            className="pl-8 w-full bg-background"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </form>
+
         <Button 
           variant="ghost" 
           size="icon"

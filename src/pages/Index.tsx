@@ -79,7 +79,7 @@ const Index = () => {
       </section>
 
       {/* Latest Project Section */}
-      <section className="py-20">
+      <section id="latest-project" className="py-20">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <FileText className="h-6 w-6 mr-2 text-primary" />
@@ -130,7 +130,7 @@ const Index = () => {
       </section>
 
       {/* Recent Skills Section */}
-      <section className="py-20">
+      <section id="recent-skills" className="py-20">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <Code className="h-6 w-6 mr-2 text-primary" />
@@ -170,7 +170,7 @@ const Index = () => {
       </section>
 
       {/* About Section Preview */}
-      <section className="py-20">
+      <section id="about" className="py-20">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <User className="h-6 w-6 mr-2 text-primary" />
