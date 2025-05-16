@@ -1,3 +1,4 @@
+
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
 import { useLocation } from "react-router-dom";
@@ -188,6 +189,9 @@ export const Sidebar = () => {
       style={{ transition: "background-color 0.2s ease, width 0.3s ease" }}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
+        {/* Add top spacing */}
+        <div className="h-4"></div>
+        
         {navItems.map((item) => (
           <a
             key={item.label}
