@@ -101,47 +101,13 @@ export default {
 					to: {
 						transform: 'translateX(-100%)'
 					}
-				},
-				'bounce-in': {
-					'0%': { transform: 'scale(0.8)', opacity: '0' },
-					'70%': { transform: 'scale(1.05)', opacity: '1' },
-					'100%': { transform: 'scale(1)', opacity: '1' }
-				},
-				'elastic-x': {
-					'0%': { transform: 'scaleX(0)' },
-					'70%': { transform: 'scaleX(1.1)' },
-					'100%': { transform: 'scaleX(1)' }
-				},
-				'elastic-y': {
-					'0%': { transform: 'scaleY(0)' },
-					'70%': { transform: 'scaleY(1.1)' },
-					'100%': { transform: 'scaleY(1)' }
-				},
-				'sticky-slide': {
-					'0%': { transform: 'translateX(var(--slide-start))' },
-					'60%': { transform: 'translateX(calc(var(--slide-end) + 10px))' },
-					'100%': { transform: 'translateX(var(--slide-end))' }
-				},
-				'stick-select': {
-					'0%': { transform: 'scale(0.95)', opacity: '0.6' },
-					'50%': { transform: 'scale(1.05)', opacity: '0.8' },
-					'100%': { transform: 'scale(1)', opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'slide-in': 'slide-in 0.3s ease-out',
-				'slide-out': 'slide-out 0.3s ease-out',
-				'bounce-in': 'bounce-in 0.5s ease-out',
-				'elastic-x': 'elastic-x 0.5s cubic-bezier(0.32, 1.25, 0.375, 1.15)',
-				'elastic-y': 'elastic-y 0.5s cubic-bezier(0.32, 1.25, 0.375, 1.15)',
-				'sticky-slide': 'sticky-slide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-				'stick-select': 'stick-select 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
-			},
-			transitionTimingFunction: {
-				'elastic': 'cubic-bezier(0.32, 1.25, 0.375, 1.15)',
-				'bounce': 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+				'slide-out': 'slide-out 0.3s ease-out'
 			}
 		}
 	},

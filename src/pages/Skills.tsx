@@ -1,5 +1,6 @@
+
 import { Layout } from "@/components/layout/Layout";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -103,20 +104,12 @@ const skillsByCategory = skillsData.reduce((acc, skill) => {
 
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [prevCategory, setPrevCategory] = useState<string>("all");
-  const tabsListRef = useRef<HTMLDivElement>(null);
   
   const displayedSkills = selectedCategory === "all" 
     ? skillsData
     : skillsData.filter(skill => skill.category === selectedCategory);
 
   const categories = ["all", ...Object.keys(skillsByCategory)];
-  
-  // Track previous and current selection for animation
-  const handleCategoryChange = (value: string) => {
-    setPrevCategory(selectedCategory);
-    setSelectedCategory(value);
-  };
   
   return (
     <Layout>
@@ -128,14 +121,9 @@ const Skills = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="all" value={selectedCategory} onValueChange={handleCategoryChange} className="max-w-4xl mx-auto mb-12">
+        <Tabs defaultValue="all" value={selectedCategory} onValueChange={setSelectedCategory} className="max-w-4xl mx-auto mb-12">
           <div className="flex justify-center mb-8">
-            <TabsList ref={tabsListRef} className="relative">
-              <div className="absolute bg-background h-[calc(100%-8px)] top-1 rounded-sm shadow-sm animate-sticky-slide"
-                   style={{
-                     width: `calc(${document.documentElement.style.getPropertyValue(`--tabs-trigger-${selectedCategory}-width`) || '0px'} - 6px)`,
-                     left: `calc(${document.documentElement.style.getPropertyValue(`--tabs-trigger-${selectedCategory}-left`) || '0px'} + 3px)`,
-                   }} />
+            <TabsList>
               {categories.map((category) => (
                 <TabsTrigger key={category} value={category}>
                   {category === "all" ? "Toutes les compétences" : category}

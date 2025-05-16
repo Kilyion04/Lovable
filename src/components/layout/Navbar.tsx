@@ -75,8 +75,6 @@ export const Navbar = () => {
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
   const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 });
-  const [hoverIndicator, setHoverIndicator] = useState({ left: 0, width: 0, active: false });
-  const [prevPath, setPrevPath] = useState(location.pathname);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,12 +103,8 @@ export const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
-  // Update indicator position for the currently active link when location changes
+  // Update indicator position for the currently active link
   useEffect(() => {
-    // Update previous path
-    setPrevPath(location.pathname);
-    
-    // Update indicator position
     updateActiveIndicator();
   }, [location.pathname]);
 
@@ -120,7 +114,6 @@ export const Navbar = () => {
     return () => window.removeEventListener('resize', updateActiveIndicator);
   }, []);
 
-  // This updates the indicator position to the currently active link
   const updateActiveIndicator = () => {
     const navContainer = navRef.current;
     if (!navContainer) return;
@@ -137,7 +130,6 @@ export const Navbar = () => {
     }
   };
 
-  // This is used to update the indicator when hovering over a link
   const handleLinkHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const navContainer = navRef.current;
     if (!navContainer) return;
@@ -145,30 +137,14 @@ export const Navbar = () => {
     const { left: navLeft } = navContainer.getBoundingClientRect();
     const { left, width } = e.currentTarget.getBoundingClientRect();
     
-    setHoverIndicator({
+    setActiveIndicator({
       left: left - navLeft,
-      width,
-      active: true
+      width
     });
   };
 
-  // Reset hover indicator when not hovering
   const handleLinkHoverEnd = () => {
-    setHoverIndicator(prev => ({...prev, active: false}));
-  };
-
-  // This function handles navigation with animation and direction
-  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href === location.pathname) {
-      // If already on this page, just scroll to top
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    // Otherwise let the navigation proceed normally
-    // The animation will happen because of the CSS transition
-    // and useEffect that runs on location change
+    updateActiveIndicator();
   };
 
   return (
@@ -271,27 +247,15 @@ export const Navbar = () => {
           ref={navRef}
           className="flex space-x-1 relative"
         >
-          {/* Active indicator - animated background for active link */}
+          {/* Active indicator - animated background */}
           <div 
-            className="absolute h-full bg-primary/15 rounded-md transition-all duration-300 ease-elastic"
+            className="absolute h-full bg-primary/10 rounded-md transition-all duration-300 ease-out"
             style={{
               left: `${activeIndicator.left}px`,
               width: `${activeIndicator.width}px`,
               top: '0',
             }}
           />
-          
-          {/* Hover indicator - animated background for hovered link */}
-          {hoverIndicator.active && (
-            <div 
-              className="absolute h-full bg-primary/5 rounded-md transition-all duration-200 ease-elastic"
-              style={{
-                left: `${hoverIndicator.left}px`,
-                width: `${hoverIndicator.width}px`,
-                top: '0',
-              }}
-            />
-          )}
           
           {/* Navigation links */}
           {mainNavItems.map((item) => (
@@ -306,7 +270,6 @@ export const Navbar = () => {
               }`}
               onMouseEnter={handleLinkHover}
               onMouseLeave={handleLinkHoverEnd}
-              onClick={(e) => handleNavigation(e, item.href)}
             >
               {item.icon}
               <span className="ml-2">{item.label}</span>
