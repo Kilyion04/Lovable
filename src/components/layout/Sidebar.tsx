@@ -12,6 +12,7 @@ import {
   ExternalLink
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type SidebarLink = {
   label: string;
@@ -194,43 +195,53 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "fixed top-[97px] left-0 z-[5] h-[calc(100vh-97px)] bg-sidebar border-r transition-all duration-300",
+        "fixed top-[97px] left-0 z-[5] h-[calc(100vh-97px)] bg-sidebar border-r overflow-hidden",
         "lg:translate-x-0",
         isExpanded ? "w-64" : "w-16"
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      style={{ transition: "width 0.3s ease" }}
+      style={{ transition: "width 0.5s cubic-bezier(0.32, 1.25, 0.375, 1.15)" }}
     >
-      <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
-        {/* Section Title */}
-        <div className={`px-4 py-3 ${isExpanded ? "opacity-100" : "opacity-0"}`}>
-          <h2 className="font-semibold text-lg">{currentContent.title}</h2>
-        </div>
-
-        {/* Page-specific links */}
-        {currentContent.links.map((item) => (
-          <Link
-            key={item.label}
-            to={item.href}
-            className={cn(
-              "flex items-center p-2 rounded-md transition-all duration-200",
-              "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-            )}
-            onClick={(e) => handleAnchorClick(e, item.href)}
+      <ScrollArea className="h-full">
+        <div className="flex flex-col h-full p-2 space-y-1">
+          {/* Section Title */}
+          <div 
+            className={`px-4 py-3 transition-opacity duration-300 ${isExpanded ? "opacity-100" : "opacity-0"}`}
+            style={{ transition: "opacity 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15)" }}
           >
-            <div className="min-w-[24px] flex justify-center">
-              {item.icon}
-            </div>
-            <span
-              className={`text-sm font-medium whitespace-nowrap transition-all duration-200 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
-                }`}
+            <h2 className="font-semibold text-lg">{currentContent.title}</h2>
+          </div>
+
+          {/* Page-specific links */}
+          {currentContent.links.map((item) => (
+            <Link
+              key={item.label}
+              to={item.href}
+              className={cn(
+                "flex items-center p-2 rounded-md transition-all duration-300",
+                "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+              )}
+              onClick={(e) => handleAnchorClick(e, item.href)}
+              style={{ transition: "all 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15)" }}
             >
-              {item.label}
-            </span>
-          </Link>
-        ))}
-      </div>
+              <div className="min-w-[24px] flex justify-center">
+                {item.icon}
+              </div>
+              <span
+                className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                  isExpanded 
+                    ? "opacity-100 ml-2 max-w-[200px]" 
+                    : "opacity-0 ml-0 max-w-0 overflow-hidden"
+                }`}
+                style={{ transition: "all 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15) 0.1s" }}
+              >
+                {item.label}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </ScrollArea>
     </aside>
   );
 };

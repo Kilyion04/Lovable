@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -74,6 +75,7 @@ export const Navbar = () => {
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
   const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 });
+  const [hoverIndicator, setHoverIndicator] = useState({ left: 0, width: 0, active: false });
   const [prevPath, setPrevPath] = useState(location.pathname);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -143,18 +145,19 @@ export const Navbar = () => {
     const { left: navLeft } = navContainer.getBoundingClientRect();
     const { left, width } = e.currentTarget.getBoundingClientRect();
     
-    setActiveIndicator({
+    setHoverIndicator({
       left: left - navLeft,
-      width
+      width,
+      active: true
     });
   };
 
-  // Reset to the active link when not hovering
+  // Reset hover indicator when not hovering
   const handleLinkHoverEnd = () => {
-    updateActiveIndicator();
+    setHoverIndicator(prev => ({...prev, active: false}));
   };
 
-  // This function handles navigation with animation
+  // This function handles navigation with animation and direction
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href === location.pathname) {
       // If already on this page, just scroll to top
@@ -268,15 +271,27 @@ export const Navbar = () => {
           ref={navRef}
           className="flex space-x-1 relative"
         >
-          {/* Active indicator - animated background */}
+          {/* Active indicator - animated background for active link */}
           <div 
-            className="absolute h-full bg-primary/10 rounded-md transition-all duration-300 ease-out"
+            className="absolute h-full bg-primary/15 rounded-md transition-all duration-300 ease-elastic"
             style={{
               left: `${activeIndicator.left}px`,
               width: `${activeIndicator.width}px`,
               top: '0',
             }}
           />
+          
+          {/* Hover indicator - animated background for hovered link */}
+          {hoverIndicator.active && (
+            <div 
+              className="absolute h-full bg-primary/5 rounded-md transition-all duration-200 ease-elastic"
+              style={{
+                left: `${hoverIndicator.left}px`,
+                width: `${hoverIndicator.width}px`,
+                top: '0',
+              }}
+            />
+          )}
           
           {/* Navigation links */}
           {mainNavItems.map((item) => (

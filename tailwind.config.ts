@@ -101,13 +101,28 @@ export default {
 					to: {
 						transform: 'translateX(-100%)'
 					}
+				},
+				'bounce-in': {
+					'0%': { transform: 'scale(0.8)', opacity: '0' },
+					'70%': { transform: 'scale(1.05)', opacity: '1' },
+					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				'elastic-x': {
+					'0%': { transform: 'scaleX(0)' },
+					'70%': { transform: 'scaleX(1.1)' },
+					'100%': { transform: 'scaleX(1)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'slide-in': 'slide-in 0.3s ease-out',
-				'slide-out': 'slide-out 0.3s ease-out'
+				'slide-out': 'slide-out 0.3s ease-out',
+				'bounce-in': 'bounce-in 0.5s ease-out',
+				'elastic-x': 'elastic-x 0.5s ease-out'
+			},
+			transitionTimingFunction: {
+				'elastic': 'cubic-bezier(0.32, 1.25, 0.375, 1.15)'
 			}
 		}
 	},
