@@ -9,7 +9,10 @@ import {
   Settings, 
   Menu,
   Home,
-  Gamepad
+  Gamepad,
+  Briefcase,
+  Award,
+  Mail
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -40,6 +43,11 @@ export const Navbar = () => {
     // We're already on the home page, just scroll to top
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Check if the current route is active
+  const isActiveRoute = (path: string) => {
+    return location.pathname === path;
   };
 
   return (
@@ -100,19 +108,47 @@ export const Navbar = () => {
       </div>
       
       {/* Navigation items below search bar */}
-      <div className="flex justify-center border-t px-4 py-1">
+      <div className="flex justify-center border-t px-4 py-1 overflow-x-auto">
         <nav className="flex space-x-4">
           <Link 
             to="/" 
-            className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent"
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent ${isActiveRoute('/') ? 'bg-accent' : ''}`}
             onClick={handleHomeNavigation}
           >
             <Home className="h-4 w-4 mr-2" />
             Accueil
           </Link>
           <Link 
+            to="/projects" 
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent ${isActiveRoute('/projects') ? 'bg-accent' : ''}`}
+          >
+            <Briefcase className="h-4 w-4 mr-2" />
+            Projets
+          </Link>
+          <Link 
+            to="/skills" 
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent ${isActiveRoute('/skills') ? 'bg-accent' : ''}`}
+          >
+            <Award className="h-4 w-4 mr-2" />
+            Compétences
+          </Link>
+          <Link 
+            to="/about" 
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent ${isActiveRoute('/about') ? 'bg-accent' : ''}`}
+          >
+            <User className="h-4 w-4 mr-2" />
+            À propos
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent ${isActiveRoute('/contact') ? 'bg-accent' : ''}`}
+          >
+            <Mail className="h-4 w-4 mr-2" />
+            Contact
+          </Link>
+          <Link 
             to="/minecraft" 
-            className="flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent"
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:bg-accent ${isActiveRoute('/minecraft') ? 'bg-accent' : ''}`}
           >
             <Gamepad className="h-4 w-4 mr-2" />
             Minecraft

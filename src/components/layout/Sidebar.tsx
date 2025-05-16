@@ -1,12 +1,20 @@
-
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Briefcase,
   Award,
   User,
-  Mail
+  Mail,
+  Home,
+  Star,
+  GraduationCap,
+  Code,
+  Database,
+  Globe,
+  MapPin,
+  Phone,
+  Github
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +24,8 @@ type NavItem = {
   icon: React.ReactNode;
 };
 
-const navItems: NavItem[] = [
+// Home page sections
+const homeNavItems: NavItem[] = [
   {
     label: "Projets",
     href: "/#projects",
@@ -39,33 +48,138 @@ const navItems: NavItem[] = [
   }
 ];
 
+// Projects page sections
+const projectsNavItems: NavItem[] = [
+  {
+    label: "Introduction",
+    href: "/projects#introduction",
+    icon: <Home size={24} />,
+  },
+  {
+    label: "Projets Vedettes",
+    href: "/projects#featured",
+    icon: <Star size={24} />,
+  },
+  {
+    label: "Tous les Projets",
+    href: "/projects#all-projects",
+    icon: <Briefcase size={24} />,
+  }
+];
+
+// Skills page sections
+const skillsNavItems: NavItem[] = [
+  {
+    label: "Aperçu",
+    href: "/skills#overview",
+    icon: <Home size={24} />,
+  },
+  {
+    label: "Niveaux de Compétences",
+    href: "/skills#skill-levels",
+    icon: <Award size={24} />,
+  },
+  {
+    label: "Technologies",
+    href: "/skills#technologies",
+    icon: <Code size={24} />,
+  }
+];
+
+// About page sections
+const aboutNavItems: NavItem[] = [
+  {
+    label: "Profil",
+    href: "/about#profile",
+    icon: <User size={24} />,
+  },
+  {
+    label: "Biographie",
+    href: "/about#biography",
+    icon: <Star size={24} />,
+  },
+  {
+    label: "Expérience",
+    href: "/about#experience",
+    icon: <Briefcase size={24} />,
+  },
+  {
+    label: "Formation",
+    href: "/about#education",
+    icon: <GraduationCap size={24} />,
+  }
+];
+
+// Contact page sections
+const contactNavItems: NavItem[] = [
+  {
+    label: "Introduction",
+    href: "/contact#contact-hero",
+    icon: <Home size={24} />,
+  },
+  {
+    label: "Informations",
+    href: "/contact#contact-info",
+    icon: <Phone size={24} />,
+  },
+  {
+    label: "Formulaire",
+    href: "/contact#contact-form",
+    icon: <Mail size={24} />,
+  },
+  {
+    label: "Localisation",
+    href: "/contact#map",
+    icon: <MapPin size={24} />,
+  }
+];
+
 export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
   const location = useLocation();
 
+  // Determine which navigation items to show based on the current route
+  const getNavItems = (): NavItem[] => {
+    const pathname = location.pathname;
+    
+    if (pathname.startsWith('/projects')) {
+      return projectsNavItems;
+    } else if (pathname.startsWith('/skills')) {
+      return skillsNavItems;
+    } else if (pathname.startsWith('/about')) {
+      return aboutNavItems;
+    } else if (pathname.startsWith('/contact')) {
+      return contactNavItems;
+    } else {
+      // Default to home page nav items
+      return homeNavItems;
+    }
+  };
+
+  const navItems = getNavItems();
+  const currentPath = location.pathname;
+
   // Function to handle navigation to anchor links
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    // If we're not already on the home page, prevent default and use Link navigation
-    if (!location.pathname.startsWith('/')) {
-      e.preventDefault();
-      window.location.href = path;
-    } else {
-      // If we're on the home page, just scroll to the section
-      const sectionId = path.split('#')[1];
-      if (sectionId) {
-        e.preventDefault();
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+    e.preventDefault();
+    const [basePath, hash] = path.split('#');
+    
+    // If we're already on the page with the correct path, just scroll to the section
+    if (currentPath === basePath || (currentPath === '/' && basePath === '/' || basePath === '')) {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
       }
+    } else {
+      // Otherwise, navigate to the new page
+      window.location.href = path;
     }
   };
 
   return (
     <aside
       className={cn(
-        "fixed top-[61px] left-0 z-[5] h-[calc(100vh-61px)] bg-sidebar border-r transition-all duration-300",
+        "fixed top-[94px] left-0 z-[5] h-[calc(100vh-94px)] bg-sidebar border-r transition-all duration-300",
         "lg:translate-x-0",
         isExpanded ? "w-64" : "w-16"
       )}
@@ -75,9 +189,9 @@ export const Sidebar = () => {
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
-          <Link
+          <a
             key={item.label}
-            to={item.href}
+            href={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
             className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-300"
           >
@@ -85,12 +199,13 @@ export const Sidebar = () => {
               {item.icon}
             </div>
             <span
-              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
-                }`}
+              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
+              }`}
             >
               {item.label}
             </span>
-          </Link>
+          </a>
         ))}
       </div>
     </aside>
