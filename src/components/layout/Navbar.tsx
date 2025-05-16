@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -76,7 +75,7 @@ export const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 });
   const [hoverIndicator, setHoverIndicator] = useState({ left: 0, width: 0, active: false });
-  const [prevPath, setPrevPath] = useState(location.pathname);
+  const [prevActiveLink, setPrevActiveLink] = useState<HTMLElement | null>(null);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,23 +104,28 @@ export const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
+  // Initial setup of active indicator position when component mounts
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      updateActiveIndicator(true);
+    });
+  }, []);
+
   // Update indicator position for the currently active link when location changes
   useEffect(() => {
-    // Update previous path
-    setPrevPath(location.pathname);
-    
-    // Update indicator position
+    // Update indicator position with animation from previous position
     updateActiveIndicator();
   }, [location.pathname]);
 
   // Update indicator when window resizes
   useEffect(() => {
-    window.addEventListener('resize', updateActiveIndicator);
-    return () => window.removeEventListener('resize', updateActiveIndicator);
+    window.addEventListener('resize', () => updateActiveIndicator(true));
+    return () => window.removeEventListener('resize', () => updateActiveIndicator(true));
   }, []);
 
   // This updates the indicator position to the currently active link
-  const updateActiveIndicator = () => {
+  // The directUpdate flag lets us update without animation on initial render or resize
+  const updateActiveIndicator = (directUpdate = false) => {
     const navContainer = navRef.current;
     if (!navContainer) return;
 
@@ -130,10 +134,22 @@ export const Navbar = () => {
       const { left: navLeft } = navContainer.getBoundingClientRect();
       const { left: itemLeft, width } = activeLink.getBoundingClientRect();
       
-      setActiveIndicator({
-        left: itemLeft - navLeft,
-        width
-      });
+      if (directUpdate) {
+        // Directly update without animation for initial render or resize
+        setActiveIndicator({
+          left: itemLeft - navLeft,
+          width
+        });
+      } else {
+        // Store the previous active link for next navigation
+        setPrevActiveLink(activeLink);
+        
+        // Animate the indicator
+        setActiveIndicator({
+          left: itemLeft - navLeft,
+          width
+        });
+      }
     }
   };
 
@@ -157,7 +173,7 @@ export const Navbar = () => {
     setHoverIndicator(prev => ({...prev, active: false}));
   };
 
-  // This function handles navigation with animation and direction
+  // This function handles navigation with animation
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href === location.pathname) {
       // If already on this page, just scroll to top
@@ -167,8 +183,7 @@ export const Navbar = () => {
     }
 
     // Otherwise let the navigation proceed normally
-    // The animation will happen because of the CSS transition
-    // and useEffect that runs on location change
+    // The animation will happen because we update the activeIndicator in useEffect
   };
 
   return (
