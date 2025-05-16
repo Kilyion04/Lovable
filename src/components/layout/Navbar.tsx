@@ -18,6 +18,7 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
+import { useToast } from "@/hooks/use-toast";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -25,12 +26,26 @@ export const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchValue.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+    
+    // Trim the search value and check if it's empty
+    const trimmedSearch = searchValue.trim();
+    
+    if (!trimmedSearch) {
+      // Show a toast notification if the search is empty
+      toast({
+        title: "Recherche vide",
+        description: "Veuillez saisir un terme de recherche",
+        variant: "destructive",
+      });
+      return;
     }
+    
+    // Navigate to search results with the valid query
+    navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`);
   };
 
   // Function to handle home navigation

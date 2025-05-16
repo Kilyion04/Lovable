@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data for search results
 const pages = [
@@ -34,22 +35,39 @@ const highlightText = (text: string, query: string) => {
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  
+  // Get the query from URL parameters and ensure it's not null
   const query = searchParams.get("q") || "";
   const [results, setResults] = useState<typeof pages>([]);
 
   useEffect(() => {
+    // If query is empty, redirect to home page
+    if (query === "") {
+      toast({
+        title: "Recherche vide",
+        description: "Veuillez saisir un terme de recherche",
+        variant: "destructive",
+      });
+      navigate("/");
+      return;
+    }
+
     // Filter pages based on search query
     const filteredResults = pages.filter(page => 
       page.title.toLowerCase().includes(query.toLowerCase()) || 
       page.content.toLowerCase().includes(query.toLowerCase())
     );
     setResults(filteredResults);
-  }, [query]);
+  }, [query, navigate, toast]);
 
   const handleResultClick = (path: string) => {
     // Navigate to the home page and add anchor
     navigate(`/${path}`);
   };
+
+  // If query is empty, don't render the component
+  if (query === "") return null;
 
   return (
     <Layout>
