@@ -20,12 +20,12 @@ const Contact = () => {
   const locations = [
     {
       name: "Lens",
-      coordinates: [2.8332, 50.4291] as [number, number],
+      coordinates: [50.4291, 2.8332], // [lat, lng]
       description: "Bureau principal"
     },
     {
       name: "Lille",
-      coordinates: [3.0573, 50.6292] as [number, number],
+      coordinates: [50.6292, 3.0573], // [lat, lng]
       description: "Bureau secondaire"
     }
   ];
