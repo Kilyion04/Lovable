@@ -16,16 +16,16 @@ const Contact = () => {
     message: ""
   });
 
-  // Locations for the map
+  // Locations for the map - Note: coordinates now in [lng, lat] format
   const locations = [
     {
       name: "Lens",
-      coordinates: [2.8332, 50.4291],
+      coordinates: [2.8332, 50.4291] as [number, number],
       description: "Bureau principal"
     },
     {
       name: "Lille",
-      coordinates: [3.0573, 50.6292],
+      coordinates: [3.0573, 50.6292] as [number, number],
       description: "Bureau secondaire"
     }
   ];
