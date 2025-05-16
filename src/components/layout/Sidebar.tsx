@@ -52,7 +52,7 @@ const pageSidebarContent: PageSidebarContent = {
     links: [
       {
         label: "Tous les projets",
-        href: "/project",
+        href: "/project#all-projects",
         icon: <FileText size={20} />,
       },
       {
@@ -72,7 +72,7 @@ const pageSidebarContent: PageSidebarContent = {
     links: [
       {
         label: "Toutes les compétences",
-        href: "/skills",
+        href: "/skills#all-skills",
         icon: <Code size={20} />,
       },
       {
@@ -176,11 +176,12 @@ export const Sidebar = () => {
   // Function to handle smooth scroll when clicking on anchor links
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     // Only handle anchor links (those with hash fragments)
-    if (href.includes('#') && !href.startsWith('#')) {
+    if (href.includes('#')) {
       const [path, hash] = href.split('#');
+      const currentPath = location.pathname === '/' ? '' : location.pathname;
       
       // If we're already on the correct path, just scroll to the element
-      if (location.pathname === path || (path === '/' && location.pathname === '')) {
+      if (currentPath === path || (path === '/' && location.pathname === '/')) {
         e.preventDefault();
         const element = document.getElementById(hash);
         if (element) {

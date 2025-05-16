@@ -17,7 +17,7 @@ import {
   Mail,
   Gamepad2
 } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
@@ -73,6 +73,8 @@ export const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const navRef = useRef<HTMLDivElement>(null);
+  const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 });
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,6 +101,50 @@ export const Navbar = () => {
       return location.pathname === '/';
     }
     return location.pathname.startsWith(path);
+  };
+
+  // Update indicator position for the currently active link
+  useEffect(() => {
+    updateActiveIndicator();
+  }, [location.pathname]);
+
+  // Update indicator when window resizes
+  useEffect(() => {
+    window.addEventListener('resize', updateActiveIndicator);
+    return () => window.removeEventListener('resize', updateActiveIndicator);
+  }, []);
+
+  const updateActiveIndicator = () => {
+    const navContainer = navRef.current;
+    if (!navContainer) return;
+
+    const activeLink = navContainer.querySelector('[data-active="true"]') as HTMLElement;
+    if (activeLink) {
+      const { left: navLeft } = navContainer.getBoundingClientRect();
+      const { left: itemLeft, width } = activeLink.getBoundingClientRect();
+      
+      setActiveIndicator({
+        left: itemLeft - navLeft,
+        width
+      });
+    }
+  };
+
+  const handleLinkHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const navContainer = navRef.current;
+    if (!navContainer) return;
+    
+    const { left: navLeft } = navContainer.getBoundingClientRect();
+    const { left, width } = e.currentTarget.getBoundingClientRect();
+    
+    setActiveIndicator({
+      left: left - navLeft,
+      width
+    });
+  };
+
+  const handleLinkHoverEnd = () => {
+    updateActiveIndicator();
   };
 
   return (
@@ -196,17 +242,34 @@ export const Navbar = () => {
       </div>
 
       {/* Main Navigation - moved below the top bar */}
-      <div className="flex justify-center px-4 py-1 border-t overflow-x-auto">
-        <div className="flex space-x-1">
+      <div className="flex justify-center px-4 py-1 border-t overflow-x-auto relative">
+        <div 
+          ref={navRef}
+          className="flex space-x-1 relative"
+        >
+          {/* Active indicator - animated background */}
+          <div 
+            className="absolute h-full bg-primary/10 rounded-md transition-all duration-300 ease-out"
+            style={{
+              left: `${activeIndicator.left}px`,
+              width: `${activeIndicator.width}px`,
+              top: '0',
+            }}
+          />
+          
+          {/* Navigation links */}
           {mainNavItems.map((item) => (
             <Link 
               key={item.label}
               to={item.href}
-              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+              data-active={isActive(item.href)}
+              className={`relative flex items-center px-3 py-2 rounded-md text-sm font-medium z-10 transition-colors duration-200 ${
                 isActive(item.href) 
-                  ? "bg-primary/10 text-primary" 
-                  : "hover:bg-accent hover:text-accent-foreground"
+                  ? "text-primary" 
+                  : "hover:text-primary"
               }`}
+              onMouseEnter={handleLinkHover}
+              onMouseLeave={handleLinkHoverEnd}
             >
               {item.icon}
               <span className="ml-2">{item.label}</span>
