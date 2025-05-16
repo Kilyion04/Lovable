@@ -1,6 +1,6 @@
 
 import { Layout } from "@/components/layout/Layout";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -104,12 +104,40 @@ const skillsByCategory = skillsData.reduce((acc, skill) => {
 
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [prevCategory, setPrevCategory] = useState<string>("all");
+  const tabsListRef = useRef<HTMLDivElement>(null);
   
   const displayedSkills = selectedCategory === "all" 
     ? skillsData
     : skillsData.filter(skill => skill.category === selectedCategory);
 
   const categories = ["all", ...Object.keys(skillsByCategory)];
+  
+  // Track previous and current selection for animation
+  const handleCategoryChange = (value: string) => {
+    setPrevCategory(selectedCategory);
+    setSelectedCategory(value);
+  };
+
+  // Apply background element with sticky animation
+  useEffect(() => {
+    if (tabsListRef.current) {
+      const prevTrigger = tabsListRef.current.querySelector(`[value="${prevCategory}"]`);
+      const currentTrigger = tabsListRef.current.querySelector(`[value="${selectedCategory}"]`);
+      
+      if (prevTrigger && currentTrigger) {
+        // Get positions for animation
+        const prevLeft = prevTrigger.getBoundingClientRect().left - 
+                        tabsListRef.current.getBoundingClientRect().left;
+        const currentLeft = currentTrigger.getBoundingClientRect().left - 
+                          tabsListRef.current.getBoundingClientRect().left;
+        
+        // Set CSS variables for the animation
+        document.documentElement.style.setProperty('--slide-start', `${prevLeft}px`);
+        document.documentElement.style.setProperty('--slide-end', `${currentLeft}px`);
+      }
+    }
+  }, [selectedCategory, prevCategory]);
   
   return (
     <Layout>
@@ -121,15 +149,17 @@ const Skills = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="all" value={selectedCategory} onValueChange={setSelectedCategory} className="max-w-4xl mx-auto mb-12">
+        <Tabs defaultValue="all" value={selectedCategory} onValueChange={handleCategoryChange} className="max-w-4xl mx-auto mb-12">
           <div className="flex justify-center mb-8">
-            <TabsList className="relative">
-              {categories.map((category, index) => (
-                <TabsTrigger key={category} value={category} className="relative">
+            <TabsList ref={tabsListRef} className="relative">
+              <div className="absolute bg-background h-[calc(100%-8px)] top-1 rounded-sm shadow-sm animate-sticky-slide"
+                   style={{
+                     width: `calc(${document.documentElement.style.getPropertyValue(`--tabs-trigger-${selectedCategory}-width`) || '0px'} - 6px)`,
+                     left: `calc(${document.documentElement.style.getPropertyValue(`--tabs-trigger-${selectedCategory}-left`) || '0px'} + 3px)`,
+                   }} />
+              {categories.map((category) => (
+                <TabsTrigger key={category} value={category}>
                   {category === "all" ? "Toutes les compétences" : category}
-                  {selectedCategory === category && (
-                    <span className="absolute inset-0 bg-background rounded-sm -z-10 animate-stick-select shadow-sm" />
-                  )}
                 </TabsTrigger>
               ))}
             </TabsList>
