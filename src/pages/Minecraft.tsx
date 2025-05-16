@@ -55,7 +55,10 @@ const Minecraft = () => {
                                         className="space-y-4"
                                     >
                                         {servers.map(server => (
-                                            <div key={server.id} className={`flex items-start space-x-3 p-3 rounded-md transition-colors ${selectedServer === server.id ? 'bg-muted' : ''}`}>
+                                            <div 
+                                                key={server.id} 
+                                                className={`flex items-start space-x-3 p-3 rounded-md transition-all duration-300 relative ${selectedServer === server.id ? 'bg-muted' : 'hover:bg-muted/50'}`}
+                                            >
                                                 <RadioGroupItem value={server.id} id={server.id} className="mt-1" />
                                                 <div>
                                                     <label htmlFor={server.id} className="flex items-center cursor-pointer font-medium">
@@ -65,6 +68,9 @@ const Minecraft = () => {
                                                     <p className="text-sm mt-1">Version: {server.version}</p>
                                                     <p className="text-sm text-muted-foreground mt-1">{server.description}</p>
                                                 </div>
+                                                {selectedServer === server.id && (
+                                                    <div className="absolute inset-0 rounded-md bg-muted -z-10 animate-stick-select" />
+                                                )}
                                             </div>
                                         ))}
                                     </RadioGroup>
@@ -118,9 +124,9 @@ const Minecraft = () => {
                                         </select>
                                     </div>
                                     
-                                    <div className="font-medium mb-2">Serveur sélectionné: {servers.find(s => s.id === selectedServer)?.name}</div>
+                                    <div className="font-medium mb-2">Serveur sélectionné: <span className="text-primary transition-all animate-bounce-in">{servers.find(s => s.id === selectedServer)?.name}</span></div>
                                     
-                                    <button type="submit" className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors w-full">
+                                    <button type="submit" className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 w-full">
                                         Envoyer la demande
                                     </button>
                                 </form>
@@ -128,7 +134,7 @@ const Minecraft = () => {
                         </div>
                     </section>
                     
-                    <section className="bg-card rounded-lg p-6 shadow-sm border" id="rules">
+                    <section className="bg-card rounded-lg p-6 shadow-sm border animate-elastic-x origin-top" id="rules">
                         <h2 className="text-2xl font-semibold mb-4">Règles du serveur</h2>
                         <ul className="list-disc pl-5 space-y-2">
                             <li>Respectez tous les joueurs</li>

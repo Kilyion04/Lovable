@@ -19,11 +19,23 @@ const About = () => {
 
         <Tabs defaultValue="bio" className="max-w-4xl mx-auto">
           <div className="flex justify-center mb-8">
-            <TabsList>
-              <TabsTrigger value="bio">Biographie</TabsTrigger>
-              <TabsTrigger value="education">Formation</TabsTrigger>
-              <TabsTrigger value="experience">Expérience</TabsTrigger>
-              <TabsTrigger value="values">Valeurs</TabsTrigger>
+            <TabsList className="relative">
+              <TabsTrigger value="bio" className="relative">
+                Biographie
+                <span className="absolute inset-0 bg-background rounded-sm -z-10 data-[state=active]:animate-stick-select data-[state=active]:shadow-sm" />
+              </TabsTrigger>
+              <TabsTrigger value="education" className="relative">
+                Formation
+                <span className="absolute inset-0 bg-background rounded-sm -z-10 data-[state=active]:animate-stick-select data-[state=active]:shadow-sm" />
+              </TabsTrigger>
+              <TabsTrigger value="experience" className="relative">
+                Expérience
+                <span className="absolute inset-0 bg-background rounded-sm -z-10 data-[state=active]:animate-stick-select data-[state=active]:shadow-sm" />
+              </TabsTrigger>
+              <TabsTrigger value="values" className="relative">
+                Valeurs
+                <span className="absolute inset-0 bg-background rounded-sm -z-10 data-[state=active]:animate-stick-select data-[state=active]:shadow-sm" />
+              </TabsTrigger>
             </TabsList>
           </div>
           

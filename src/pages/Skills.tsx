@@ -123,10 +123,13 @@ const Skills = () => {
 
         <Tabs defaultValue="all" value={selectedCategory} onValueChange={setSelectedCategory} className="max-w-4xl mx-auto mb-12">
           <div className="flex justify-center mb-8">
-            <TabsList>
-              {categories.map((category) => (
-                <TabsTrigger key={category} value={category}>
+            <TabsList className="relative">
+              {categories.map((category, index) => (
+                <TabsTrigger key={category} value={category} className="relative">
                   {category === "all" ? "Toutes les compétences" : category}
+                  {selectedCategory === category && (
+                    <span className="absolute inset-0 bg-background rounded-sm -z-10 animate-stick-select shadow-sm" />
+                  )}
                 </TabsTrigger>
               ))}
             </TabsList>
