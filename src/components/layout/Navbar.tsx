@@ -13,7 +13,9 @@ import {
   Home,
   FileText,
   Code,
-  Info
+  Info,
+  Mail,
+  Gamepad2
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
@@ -61,7 +63,7 @@ const mainNavItems: NavItem[] = [
   {
     label: "Minecraft",
     href: "/minecraft",
-    icon: <Gamepad className="h-4 w-4" />,
+    icon: <Gamepad2 className="h-4 w-4" />,
   }
 ];
 

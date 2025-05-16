@@ -173,6 +173,23 @@ export const Sidebar = () => {
 
   const currentContent = getCurrentPageContent();
 
+  // Function to handle smooth scroll when clicking on anchor links
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Only handle anchor links (those with hash fragments)
+    if (href.includes('#') && !href.startsWith('#')) {
+      const [path, hash] = href.split('#');
+      
+      // If we're already on the correct path, just scroll to the element
+      if (location.pathname === path || (path === '/' && location.pathname === '')) {
+        e.preventDefault();
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  };
+
   return (
     <aside
       className={cn(
@@ -199,6 +216,7 @@ export const Sidebar = () => {
               "flex items-center p-2 rounded-md transition-all duration-200",
               "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
             )}
+            onClick={(e) => handleAnchorClick(e, item.href)}
           >
             <div className="min-w-[24px] flex justify-center">
               {item.icon}
