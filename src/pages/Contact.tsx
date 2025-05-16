@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
+import MapComponent from "@/components/map/MapComponent";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,20 @@ const Contact = () => {
     subject: "",
     message: ""
   });
+
+  // Locations for the map
+  const locations = [
+    {
+      name: "Lens",
+      coordinates: [2.8332, 50.4291],
+      description: "Bureau principal"
+    },
+    {
+      name: "Lille",
+      coordinates: [3.0573, 50.6292],
+      description: "Bureau secondaire"
+    }
+  ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -167,10 +182,7 @@ const Contact = () => {
       
       <section id="map" className="py-10">
         <h2 className="text-2xl font-semibold mb-6">Me Localiser</h2>
-        <div className="bg-muted aspect-video w-full rounded-lg flex items-center justify-center">
-          <p className="text-muted-foreground">Carte interactive sera affichée ici</p>
-          {/* Pour une véritable carte, vous devez intégrer Google Maps ou une alternative similaire */}
-        </div>
+        <MapComponent locations={locations} />
       </section>
     </Layout>
   );
