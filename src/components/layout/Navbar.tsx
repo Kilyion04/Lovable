@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -75,6 +74,7 @@ export const Navbar = () => {
   const location = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
   const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 });
+  const [prevPath, setPrevPath] = useState(location.pathname);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,8 +103,12 @@ export const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
-  // Update indicator position for the currently active link
+  // Update indicator position for the currently active link when location changes
   useEffect(() => {
+    // Update previous path
+    setPrevPath(location.pathname);
+    
+    // Update indicator position
     updateActiveIndicator();
   }, [location.pathname]);
 
@@ -114,6 +118,7 @@ export const Navbar = () => {
     return () => window.removeEventListener('resize', updateActiveIndicator);
   }, []);
 
+  // This updates the indicator position to the currently active link
   const updateActiveIndicator = () => {
     const navContainer = navRef.current;
     if (!navContainer) return;
@@ -130,6 +135,7 @@ export const Navbar = () => {
     }
   };
 
+  // This is used to update the indicator when hovering over a link
   const handleLinkHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const navContainer = navRef.current;
     if (!navContainer) return;
@@ -143,8 +149,23 @@ export const Navbar = () => {
     });
   };
 
+  // Reset to the active link when not hovering
   const handleLinkHoverEnd = () => {
     updateActiveIndicator();
+  };
+
+  // This function handles navigation with animation
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href === location.pathname) {
+      // If already on this page, just scroll to top
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Otherwise let the navigation proceed normally
+    // The animation will happen because of the CSS transition
+    // and useEffect that runs on location change
   };
 
   return (
@@ -270,6 +291,7 @@ export const Navbar = () => {
               }`}
               onMouseEnter={handleLinkHover}
               onMouseLeave={handleLinkHoverEnd}
+              onClick={(e) => handleNavigation(e, item.href)}
             >
               {item.icon}
               <span className="ml-2">{item.label}</span>
