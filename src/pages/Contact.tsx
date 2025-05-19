@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
-import MapComponent from "@/components/map/MapComponent";
+import MapComponent, { Location } from "@/components/map/MapComponent";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -16,16 +15,16 @@ const Contact = () => {
     message: ""
   });
 
-  // Locations for the map - Note: coordinates now in [lng, lat] format
-  const locations = [
+  // Locations for the map - Note: coordinates now in [lat, lng] format as tuples
+  const locations: Location[] = [
     {
       name: "Lens",
-      coordinates: [50.4291, 2.8332], // [lat, lng]
+      coordinates: [50.4291, 2.8332] as [number, number], // [lat, lng]
       description: "Bureau principal"
     },
     {
       name: "Lille",
-      coordinates: [50.6292, 3.0573], // [lat, lng]
+      coordinates: [50.6292, 3.0573] as [number, number], // [lat, lng]
       description: "Bureau secondaire"
     }
   ];
@@ -70,7 +69,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-medium mb-1">Adresse</h3>
-                    <p className="text-muted-foreground">123 Rue de l'Innovation, 75001 Paris, France</p>
+                    <p className="text-muted-foreground">11 rue Jean Monnet, 62430 SALLAUMINES</p>
                   </div>
                 </CardContent>
               </Card>
@@ -82,7 +81,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-medium mb-1">Email</h3>
-                    <a href="mailto:contact@example.com" className="text-primary">contact@example.com</a>
+                    <a href="mailto:benoit.grout@gmail.com" className="text-primary">benoit.grout@gmail.com</a>
                   </div>
                 </CardContent>
               </Card>
@@ -94,7 +93,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-medium mb-1">Téléphone</h3>
-                    <a href="tel:+33123456789" className="text-primary">+33 1 23 45 67 89</a>
+                    <a href="tel:+33625321916" className="text-primary">06 25 32 19 16</a>
                   </div>
                 </CardContent>
               </Card>
@@ -102,10 +101,10 @@ const Contact = () => {
               <div className="pt-6">
                 <h3 className="font-medium mb-4">Suivez-moi</h3>
                 <div className="flex gap-4">
-                  <a href="#" className="bg-muted p-3 rounded-full hover:bg-muted/80 transition-colors">
+                  <a href="https://www.linkedin.com/in/benoit-grout-a74b0828a/" target="_blank" rel="noopener noreferrer" className="bg-muted p-3 rounded-full hover:bg-muted/80 transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="#" className="bg-muted p-3 rounded-full hover:bg-muted/80 transition-colors">
+                  <a href="https://github.com/Benoit7408" target="_blank" rel="noopener noreferrer" className="bg-muted p-3 rounded-full hover:bg-muted/80 transition-colors">
                     <Github className="h-5 w-5" />
                   </a>
                   <a href="#" className="bg-muted p-3 rounded-full hover:bg-muted/80 transition-colors">

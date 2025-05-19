@@ -44,7 +44,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations }) => {
 
   return (
     <MapContainer 
-      center={center}
+      defaultCenter={center}
       zoom={10} 
       style={{ height: '500px', width: '100%', borderRadius: '0.5rem' }}
       scrollWheelZoom={true}

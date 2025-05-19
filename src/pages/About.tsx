@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download, Star, MapPin, GraduationCap, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -13,27 +14,29 @@ const About = () => {
           <div className="md:col-span-1 flex flex-col items-center md:items-end">
             <Avatar className="w-48 h-48">
               <AvatarImage 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500"
-                alt="Profile photo" 
+                src="/placeholder.svg"
+                alt="Photo de profil de Benoît Grout" 
               />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>BG</AvatarFallback>
             </Avatar>
           </div>
           
           <div className="md:col-span-2">
-            <h1 className="text-4xl font-bold mb-3">John Doe</h1>
-            <h2 className="text-2xl text-muted-foreground mb-4">Développeur Full Stack</h2>
+            <h1 className="text-4xl font-bold mb-3">Benoît Grout</h1>
+            <h2 className="text-2xl text-muted-foreground mb-4">Informaticien Indépendant</h2>
             <p className="text-lg mb-4">
-              Passionné de création d'applications web modernes et intuitives. Spécialisé dans les technologies React, Node.js et TypeScript.
+              Expert en solutions informatiques pour les particuliers et professionnels. Spécialisé dans le dépannage, le conseil et l'assistance technique.
             </p>
             
             <div className="flex items-center gap-2 mb-6 text-muted-foreground">
               <MapPin className="h-4 w-4" />
-              <span>Paris, France</span>
+              <span>Sallaumines, France</span>
             </div>
             
             <div className="flex flex-wrap gap-3">
-              <Button>Me contacter</Button>
+              <Button asChild>
+                <Link to="/contact">Me contacter</Link>
+              </Button>
               <Button variant="outline">
                 Télécharger CV <Download className="ml-2 h-4 w-4" />
               </Button>
@@ -46,19 +49,20 @@ const About = () => {
         <h2 className="text-2xl font-semibold mb-6">Biographie</h2>
         <div className="space-y-4 text-lg">
           <p>
-            Je suis un développeur web full-stack passionné par la création d'applications web modernes et intuitives.
-            Avec plusieurs années d'expérience dans le domaine, j'ai travaillé sur différents projets allant des sites vitrines aux applications web complexes.
+            Je suis un informaticien indépendant passionné par l'assistance technique et le dépannage informatique.
+            Avec plusieurs années d'expérience dans le domaine, j'ai travaillé sur différents projets et résolu de nombreux problèmes informatiques
+            pour particuliers et professionnels.
           </p>
           <p>
-            Ma passion pour l'apprentissage continu me permet de rester à jour avec les dernières technologies et tendances du web.
-            Je suis particulièrement intéressé par les technologies React, Node.js, TypeScript et les architectures cloud modernes.
+            Mon objectif est de rendre l'informatique accessible à tous en proposant des solutions adaptées aux besoins de chacun.
+            Je suis particulièrement intéressé par les technologies réseau, la sécurité informatique, et les serveurs de jeux comme Minecraft.
           </p>
           <div className="flex items-center mt-6">
             <div className="mr-4">
               <Star className="text-yellow-500 h-5 w-5" />
             </div>
             <p className="text-muted-foreground italic">
-              "L'innovation distingue un leader d'un suiveur."
+              "Le succès c'est d'aller d'échec en échec sans perdre son enthousiasme."
             </p>
           </div>
         </div>
@@ -76,14 +80,14 @@ const About = () => {
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-medium">Développeur Full Stack Senior</h3>
-                      <p className="text-muted-foreground">Tech Solutions Inc.</p>
+                      <h3 className="text-xl font-medium">Informaticien Indépendant</h3>
+                      <p className="text-muted-foreground">DOKKUL</p>
                     </div>
-                    <span className="text-sm text-muted-foreground">2020 - Présent</span>
+                    <span className="text-sm text-muted-foreground">2021 - Présent</span>
                   </div>
                   <p className="mt-2">
-                    Développement d'applications web avec React et Node.js. Mise en place d'architectures cloud sur AWS.
-                    Gestion d'équipe et mentoring de développeurs juniors.
+                    Dépannage informatique, installation et configuration de réseaux, maintenance de serveurs, assistance technique.
+                    Support clients particuliers et professionnels dans la région des Hauts-de-France.
                   </p>
                 </div>
               </div>
@@ -99,14 +103,14 @@ const About = () => {
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-medium">Développeur Front-End</h3>
-                      <p className="text-muted-foreground">WebCreative Agency</p>
+                      <h3 className="text-xl font-medium">Administrateur Réseau</h3>
+                      <p className="text-muted-foreground">Diverses entreprises</p>
                     </div>
-                    <span className="text-sm text-muted-foreground">2017 - 2020</span>
+                    <span className="text-sm text-muted-foreground">2016 - 2021</span>
                   </div>
                   <p className="mt-2">
-                    Création d'interfaces utilisateur dynamiques avec React et Vue.js. Intégration d'APIs RESTful.
-                    Optimisation des performances des applications web.
+                    Administration et maintenance des infrastructures réseau. Configuration des équipements, 
+                    résolution des problèmes de connectivité, mise en place de solutions de sécurité.
                   </p>
                 </div>
               </div>
@@ -127,14 +131,14 @@ const About = () => {
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-medium">Master en Informatique</h3>
-                      <p className="text-muted-foreground">Université de Paris</p>
+                      <h3 className="text-xl font-medium">BTS Services Informatiques aux Organisations</h3>
+                      <p className="text-muted-foreground">AFPA</p>
                     </div>
-                    <span className="text-sm text-muted-foreground">2015 - 2017</span>
+                    <span className="text-sm text-muted-foreground">2016</span>
                   </div>
                   <p className="mt-2">
-                    Spécialisation en développement web et technologies cloud. Projets majeurs incluant
-                    le développement d'applications web scalables et l'intelligence artificielle.
+                    Spécialisation en administration des systèmes et réseaux. Projets incluant
+                    la conception et la mise en place d'infrastructures informatiques complètes.
                   </p>
                 </div>
               </div>
@@ -150,14 +154,14 @@ const About = () => {
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-medium">Licence en Informatique</h3>
-                      <p className="text-muted-foreground">Université de Lyon</p>
+                      <h3 className="text-xl font-medium">BAC Pro Systèmes Électroniques Numériques</h3>
+                      <p className="text-muted-foreground">Lycée Auguste Béhal</p>
                     </div>
-                    <span className="text-sm text-muted-foreground">2012 - 2015</span>
+                    <span className="text-sm text-muted-foreground">2014</span>
                   </div>
                   <p className="mt-2">
-                    Fondamentaux de la programmation, structures de données, algorithmique et
-                    introduction aux technologies du web.
+                    Formation aux fondamentaux des systèmes électroniques et informatiques.
+                    Apprentissage des techniques de maintenance et de dépannage.
                   </p>
                 </div>
               </div>
