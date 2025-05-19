@@ -127,7 +127,7 @@ export const Navbar = () => {
         <nav className="flex space-x-4">
           <Link 
             to="/" 
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] hover:bg-white dark:hover:bg-white/10 transition duration-400 ${isActiveRoute('/') ? 'bg-accent' : ''}`}
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] hover:bg-white/90 dark:hover:bg-white/20 transition duration-400 ${isActiveRoute('/') ? 'bg-accent' : ''}`}
             onClick={handleHomeNavigation}
           >
             <Home className="h-4 w-4 mr-2" />
@@ -135,35 +135,35 @@ export const Navbar = () => {
           </Link>
           <Link 
             to="/projects" 
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] hover:bg-white dark:hover:bg-white/10 transition duration-400 ${isActiveRoute('/projects') ? 'bg-accent' : ''}`}
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] hover:bg-white/90 dark:hover:bg-white/20 transition duration-400 ${isActiveRoute('/projects') ? 'bg-accent' : ''}`}
           >
             <Briefcase className="h-4 w-4 mr-2" />
             Projets
           </Link>
           <Link 
             to="/skills" 
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] hover:bg-white dark:hover:bg-white/10 transition duration-400 ${isActiveRoute('/skills') ? 'bg-accent' : ''}`}
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] hover:bg-white/90 dark:hover:bg-white/20 transition duration-400 ${isActiveRoute('/skills') ? 'bg-accent' : ''}`}
           >
             <Award className="h-4 w-4 mr-2" />
             Compétences
           </Link>
           <Link 
             to="/about" 
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] hover:bg-white dark:hover:bg-white/10 transition duration-400 ${isActiveRoute('/about') ? 'bg-accent' : ''}`}
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] hover:bg-white/90 dark:hover:bg-white/20 transition duration-400 ${isActiveRoute('/about') ? 'bg-accent' : ''}`}
           >
             <User className="h-4 w-4 mr-2" />
             À propos
           </Link>
           <Link 
             to="/contact" 
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] hover:bg-white dark:hover:bg-white/10 transition duration-400 ${isActiveRoute('/contact') ? 'bg-accent' : ''}`}
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] hover:bg-white/90 dark:hover:bg-white/20 transition duration-400 ${isActiveRoute('/contact') ? 'bg-accent' : ''}`}
           >
             <Mail className="h-4 w-4 mr-2" />
             Contact
           </Link>
           <Link 
             to="/minecraft" 
-            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.2)] hover:bg-white dark:hover:bg-white/10 transition duration-400 ${isActiveRoute('/minecraft') ? 'bg-accent' : ''}`}
+            className={`flex items-center px-3 py-2 text-sm font-medium rounded-md hover:shadow-[0_4px_8px_rgba(0,0,0,0.3)] hover:bg-white/90 dark:hover:bg-white/20 transition duration-400 ${isActiveRoute('/minecraft') ? 'bg-accent' : ''}`}
           >
             <Gamepad className="h-4 w-4 mr-2" />
             Minecraft
