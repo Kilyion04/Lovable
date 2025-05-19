@@ -15,22 +15,22 @@ const About = () => {
             <Avatar className="w-48 h-48">
               <AvatarImage 
                 src="/placeholder.svg"
-                alt="Photo de profil de Benoît Grout" 
+                alt="Photo de profil de Kilyion Romary" 
               />
-              <AvatarFallback>BG</AvatarFallback>
+              <AvatarFallback>KR</AvatarFallback>
             </Avatar>
           </div>
           
           <div className="md:col-span-2">
-            <h1 className="text-4xl font-bold mb-3">Benoît Grout</h1>
+            <h1 className="text-4xl font-bold mb-3">Kilyion Romary</h1>
             <h2 className="text-2xl text-muted-foreground mb-4">Informaticien Indépendant</h2>
             <p className="text-lg mb-4">
-              Expert en solutions informatiques pour les particuliers et professionnels. Spécialisé dans le dépannage, le conseil et l'assistance technique.
+              Étudiant en dernière année à CESI École d'Ingénieurs LIlle, ALternants Data chez SIA Habitat Douai
             </p>
             
             <div className="flex items-center gap-2 mb-6 text-muted-foreground">
               <MapPin className="h-4 w-4" />
-              <span>Sallaumines, France</span>
+              <span>Lille, France</span>
             </div>
             
             <div className="flex flex-wrap gap-3">
