@@ -8,38 +8,38 @@ import { ExternalLink } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Projet E-commerce",
-    description: "Une plateforme de commerce électronique complète avec panier d'achat et paiement en ligne.",
-    tags: ["React", "Node.js", "MongoDB"],
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    title: "DOKKUL",
+    description: "Câblage informatique, serveurs, stockage, VPN, NAS, sécurité périphérique, caméra.",
+    tags: ["Système", "Réseaux", "Câblage", "Sécurité"],
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
   },
   {
     id: 2,
-    title: "Application de Gestion",
-    description: "Un tableau de bord d'administration pour gérer les utilisateurs, les produits et les commandes.",
-    tags: ["TypeScript", "Next.js", "Prisma"],
+    title: "Assistance Site Web",
+    description: "Conception, création, mise à jour, infogérance complète de site web. Mise en place et gestion de campagnes Google Ads et suivi des conversions.",
+    tags: ["Web", "SEO", "Google Ads", "WordPress"],
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
   },
   {
     id: 3,
-    title: "Site Portfolio",
-    description: "Un site web portfolio responsive pour présenter mes projets et compétences.",
-    tags: ["React", "Tailwind CSS", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    title: "Maintenance/Dépannage",
+    description: "Résolution des problèmes informatiques. Mises à jour PC, formatage, récupérations données, remplacement pièces défectueuses.",
+    tags: ["Hardware", "Software", "Dépannage", "Récupération de données"],
+    image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
   },
   {
     id: 4,
-    title: "Application Mobile",
-    description: "Une application mobile cross-platform pour le suivi de fitness et d'activités sportives.",
-    tags: ["React Native", "Firebase", "Redux"],
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    title: "Assistance Technique",
+    description: "Formation et aide à l'utilisation des outils et logiciels informatiques. Résolution des problèmes à distance ou sur site.",
+    tags: ["Formation", "Support", "Assistance", "Dépannage"],
+    image: "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
   },
   {
     id: 5,
-    title: "Dashboard Analytics",
-    description: "Un tableau de bord interactif pour visualiser et analyser des données en temps réel.",
-    tags: ["D3.js", "Angular", "Express"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
+    title: "Serveur Minecraft",
+    description: "Création et gestion de serveurs Minecraft, mise en place de plugins, configuration et optimisation.",
+    tags: ["Minecraft", "Java", "Serveur", "Configuration"],
+    image: "https://images.unsplash.com/photo-1587573089734-599d584a32ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=350"
   },
 ];
 
@@ -47,14 +47,14 @@ const Projects = () => {
   return (
     <Layout>
       <section id="introduction" className="py-10 text-center">
-        <h1 className="text-4xl font-bold mb-6">Mes Projets</h1>
+        <h1 className="text-4xl font-bold mb-6">Mes Services</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Découvrez une sélection de mes travaux récents montrant mes compétences et mon expertise.
+          Découvrez les différents services informatiques que je propose pour répondre à vos besoins.
         </p>
       </section>
       
       <section id="featured" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Projets Vedettes</h2>
+        <h2 className="text-2xl font-semibold mb-6">Services Principaux</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card className="overflow-hidden">
             <img 
@@ -107,7 +107,7 @@ const Projects = () => {
       </section>
       
       <section id="all-projects" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Tous les Projets</h2>
+        <h2 className="text-2xl font-semibold mb-6">Tous les Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <Card key={project.id} className="overflow-hidden">

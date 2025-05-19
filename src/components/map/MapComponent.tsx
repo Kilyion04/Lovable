@@ -19,7 +19,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-type Location = {
+export type Location = {
   name: string;
   coordinates: [number, number]; // [lat, lng] - typed as tuple
   description: string;
@@ -40,9 +40,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ locations }) => {
     return [sumLat / locations.length, sumLng / locations.length];
   };
 
+  const center = calculateCenter();
+
   return (
     <MapContainer 
-      center={calculateCenter()}
+      center={center}
       zoom={10} 
       style={{ height: '500px', width: '100%', borderRadius: '0.5rem' }}
       scrollWheelZoom={true}
