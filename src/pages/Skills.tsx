@@ -11,11 +11,11 @@ const skillCategories = [
     title: "Front-End",
     icon: <Monitor className="h-5 w-5" />,
     skills: [
-      { name: "HTML/CSS", level: 95 },
-      { name: "JavaScript", level: 90 },
-      { name: "React", level: 85 },
-      { name: "TypeScript", level: 80 },
-      { name: "Vue.js", level: 70 },
+      { name: "HTML/CSS", level: 90 },
+      { name: "JavaScript", level: 85 },
+      { name: "PHP", level: 80 },
+      { name: "EasyPHP", level: 85 },
+      { name: "WordPress", level: 75 },
     ]
   },
   {
@@ -23,11 +23,11 @@ const skillCategories = [
     title: "Back-End",
     icon: <Server className="h-5 w-5" />,
     skills: [
-      { name: "Node.js", level: 85 },
-      { name: "Express", level: 80 },
-      { name: "Python", level: 75 },
-      { name: "PHP", level: 65 },
-      { name: "Java", level: 60 },
+      { name: "Python", level: 85 },
+      { name: "C, C++, C#", level: 80 },
+      { name: "SQL", level: 75 },
+      { name: "MySQL", level: 85 },
+      { name: "PostgreSQL", level: 75 },
     ]
   },
   {
@@ -35,10 +35,9 @@ const skillCategories = [
     title: "Base de Données",
     icon: <Database className="h-5 w-5" />,
     skills: [
-      { name: "MongoDB", level: 85 },
-      { name: "MySQL", level: 80 },
-      { name: "PostgreSQL", level: 75 },
-      { name: "Firebase", level: 70 },
+      { name: "MySQL", level: 85 },
+      { name: "PostgreSQL", level: 80 },
+      { name: "MongoDB", level: 75 },
     ]
   },
   {
@@ -46,18 +45,18 @@ const skillCategories = [
     title: "Autres",
     icon: <Lightbulb className="h-5 w-5" />,
     skills: [
-      { name: "Git", level: 90 },
-      { name: "Docker", level: 70 },
-      { name: "AWS", level: 65 },
-      { name: "CI/CD", level: 70 },
+      { name: "Arduino", level: 70 },
+      { name: "Jupyter Notebook", level: 85 },
+      { name: "Visual Studio", level: 80 },
+      { name: "Cisco Packet Tracer", level: 75 },
     ]
   }
 ];
 
 const technologiesByCategory = {
-  "languages": ["JavaScript", "TypeScript", "Python", "PHP", "Java", "C#"],
-  "frameworks": ["React", "Vue.js", "Angular", "Next.js", "Express", "Django", "Laravel"],
-  "tools": ["Git", "Docker", "Webpack", "Babel", "Jest", "Cypress", "Figma"],
+  "languages": ["JavaScript", "Python", "PHP", "C", "C++", "C#", "SQL"],
+  "frameworks": ["WordPress", "EasyPHP", "Jupyter Notebook"],
+  "tools": ["Visual Studio", "Visual Studio Code", "MySQL Workbench", "PostgreSQL", "MongoDB", "Cisco Packet Tracer", "Arduino"],
 };
 
 const Skills = () => {
@@ -66,52 +65,52 @@ const Skills = () => {
       <section id="overview" className="py-10">
         <h1 className="text-4xl font-bold mb-6 text-center">Mes Compétences</h1>
         <p className="text-muted-foreground max-w-3xl mx-auto text-center mb-10">
-          Les technologies et outils avec lesquels je travaille quotidiennement pour créer des applications web modernes, 
-          performantes et accessibles.
+          Les technologies et outils avec lesquels je travaille quotidiennement pour créer des applications innovantes et 
+          performantes. Actuellement en 3ème année à CESI École d'Ingénieurs et alternant chez SIA Habitat.
         </p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Front-End</CardTitle>
+              <CardTitle className="text-sm font-medium">Développement</CardTitle>
               <Monitor className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">4+ ans</div>
-              <p className="text-xs text-muted-foreground">Développement d'interfaces utilisateur</p>
+              <div className="text-2xl font-bold">3+ ans</div>
+              <p className="text-xs text-muted-foreground">Développement d'applications</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Back-End</CardTitle>
+              <CardTitle className="text-sm font-medium">Organisation</CardTitle>
               <Server className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">3+ ans</div>
-              <p className="text-xs text-muted-foreground">Architecture API et services</p>
+              <div className="text-2xl font-bold">Rigoureux</div>
+              <p className="text-xs text-muted-foreground">Méthodique et organisé</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Mobile</CardTitle>
+              <CardTitle className="text-sm font-medium">Équipe</CardTitle>
               <Smartphone className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2+ ans</div>
-              <p className="text-xs text-muted-foreground">Applications hybrides et natives</p>
+              <div className="text-2xl font-bold">Excellent</div>
+              <p className="text-xs text-muted-foreground">Esprit d'équipe</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Data</CardTitle>
+              <CardTitle className="text-sm font-medium">Langues</CardTitle>
               <LineChart className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2+ ans</div>
-              <p className="text-xs text-muted-foreground">Analyse et visualisation</p>
+              <div className="text-2xl font-bold">Anglais B2</div>
+              <p className="text-xs text-muted-foreground">TOEIC</p>
             </CardContent>
           </Card>
         </div>

@@ -21,7 +21,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 type Location = {
   name: string;
-  coordinates: [number, number]; // [lat, lng]
+  coordinates: [number, number]; // [lat, lng] - typed as tuple
   description: string;
 };
 

@@ -15,7 +15,10 @@ import {
   Globe,
   MapPin,
   Phone,
-  Github
+  Github,
+  Gamepad,
+  Server,
+  Book
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -135,6 +138,30 @@ const contactNavItems: NavItem[] = [
   }
 ];
 
+// Minecraft page sections
+const minecraftNavItems: NavItem[] = [
+  {
+    label: "Introduction",
+    href: "/minecraft#introduction",
+    icon: <Home size={24} />,
+  },
+  {
+    label: "Serveurs",
+    href: "/minecraft#servers",
+    icon: <Server size={24} />,
+  },
+  {
+    label: "Demande d'accès",
+    href: "/minecraft#access-request",
+    icon: <User size={24} />,
+  },
+  {
+    label: "Règles",
+    href: "/minecraft#rules",
+    icon: <Book size={24} />,
+  }
+];
+
 export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
   const location = useLocation();
@@ -151,6 +178,8 @@ export const Sidebar = () => {
       return aboutNavItems;
     } else if (pathname.startsWith('/contact')) {
       return contactNavItems;
+    } else if (pathname.startsWith('/minecraft')) {
+      return minecraftNavItems;
     } else {
       // Default to home page nav items
       return homeNavItems;
