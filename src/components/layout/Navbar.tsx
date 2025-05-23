@@ -11,7 +11,8 @@ import {
   Gamepad,
   Briefcase,
   Award,
-  Mail
+  Mail,
+  User
 } from "lucide-react";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeProvider";
