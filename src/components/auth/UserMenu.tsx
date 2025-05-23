@@ -58,8 +58,8 @@ export function UserMenu() {
           >
             {isAuthenticated && user ? (
               <Avatar className="h-8 w-8">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                <AvatarImage src={user?.avatar} alt={user?.name || "U"} />
+                <AvatarFallback>{(user?.name?.substring(0, 2) || "U").toUpperCase()}</AvatarFallback>
               </Avatar>
             ) : (
               <User className="h-5 w-5" />
