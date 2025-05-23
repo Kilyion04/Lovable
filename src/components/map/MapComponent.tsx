@@ -57,17 +57,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   return (
     <MapContainer
-      center={center}
+      center={center as L.LatLngExpression}
       zoom={10}
       style={{ height: height, width: "100%", borderRadius: "0.5rem" }}
       scrollWheelZoom={false}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {locations.map((location, index) => (
-        <Marker key={index} position={location.coordinates}>
+        <Marker key={index} position={location.coordinates as L.LatLngExpression}>
           <Popup>
             <div>
               <h3 className="font-medium">{location.name}</h3>
