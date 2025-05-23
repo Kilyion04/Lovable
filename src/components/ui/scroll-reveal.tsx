@@ -38,6 +38,7 @@ export function ScrollReveal({
       },
       {
         threshold,
+        rootMargin: "10px", // This gives a small buffer so elements start animating slightly before they come into view
       }
     );
 
@@ -53,7 +54,7 @@ export function ScrollReveal({
     };
   }, [once, threshold]);
 
-  // Configurez les classes en fonction de la direction
+  // Configure the classes based on the direction
   const getDirectionClasses = () => {
     switch (direction) {
       case "up":
