@@ -5,7 +5,6 @@ import {
   Search, 
   Moon, 
   Sun, 
-  User, 
   Settings, 
   Menu,
   Home,
@@ -19,6 +18,7 @@ import { ThemeContext } from "../theme/ThemeProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { SidebarContext } from "./SidebarContext";
 import { useToast } from "@/hooks/use-toast";
+import { UserMenu } from "../auth/UserMenu";
 
 export const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -112,9 +112,7 @@ export const Navbar = () => {
             )}
           </Button>
 
-          <Button variant="ghost" size="icon" aria-label="User profile">
-            <User className="h-5 w-5" />
-          </Button>
+          <UserMenu />
 
           <Button variant="ghost" size="icon" aria-label="Settings">
             <Settings className="h-5 w-5" />
