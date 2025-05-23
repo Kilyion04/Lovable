@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { ExternalLink } from "lucide-react";
 
 const projects = [
@@ -46,95 +47,107 @@ const projects = [
 const Projects = () => {
   return (
     <Layout>
-      <section id="introduction" className="py-10 text-center">
-        <h1 className="text-4xl font-bold mb-6">Mes Services</h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Découvrez les différents services informatiques que je propose pour répondre à vos besoins.
-        </p>
-      </section>
+      <ScrollReveal>
+        <section id="introduction" className="py-10 text-center">
+          <h1 className="text-4xl font-bold mb-6">Mes Services</h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Découvrez les différents services informatiques que je propose pour répondre à vos besoins.
+          </p>
+        </section>
+      </ScrollReveal>
       
       <section id="featured" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Services Principaux</h2>
+        <ScrollReveal>
+          <h2 className="text-2xl font-semibold mb-6">Services Principaux</h2>
+        </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card className="overflow-hidden">
-            <img 
-              src={projects[0].image} 
-              alt={projects[0].title}
-              className="w-full h-64 object-cover"
-            />
-            <CardHeader>
-              <CardTitle>{projects[0].title}</CardTitle>
-              <CardDescription>{projects[0].description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {projects[0].tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">{tag}</Badge>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="ml-auto">
-                Voir détails <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </CardFooter>
-          </Card>
-          
-          <Card className="overflow-hidden">
-            <img 
-              src={projects[1].image} 
-              alt={projects[1].title}
-              className="w-full h-64 object-cover"
-            />
-            <CardHeader>
-              <CardTitle>{projects[1].title}</CardTitle>
-              <CardDescription>{projects[1].description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
-                {projects[1].tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">{tag}</Badge>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="ml-auto">
-                Voir détails <ExternalLink className="ml-2 h-4 w-4" />
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-      </section>
-      
-      <section id="all-projects" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Tous les Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Card key={project.id} className="overflow-hidden">
+          <ScrollReveal direction="left">
+            <Card className="overflow-hidden">
               <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-48 object-cover"
+                src={projects[0].image} 
+                alt={projects[0].title}
+                className="w-full h-64 object-cover"
               />
               <CardHeader>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardTitle>{projects[0].title}</CardTitle>
+                <CardDescription>{projects[0].description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
+                  {projects[0].tags.map((tag) => (
                     <Badge key={tag} variant="secondary">{tag}</Badge>
                   ))}
                 </div>
               </CardContent>
               <CardFooter>
-                <Button variant="ghost" asChild className="ml-auto">
-                  <a href={`#project-${project.id}`}>
-                    Voir détails <ExternalLink className="ml-2 h-4 w-4" />
-                  </a>
+                <Button variant="outline" className="ml-auto">
+                  Voir détails <ExternalLink className="ml-2 h-4 w-4" />
                 </Button>
               </CardFooter>
             </Card>
+          </ScrollReveal>
+          
+          <ScrollReveal direction="right" delay={100}>
+            <Card className="overflow-hidden">
+              <img 
+                src={projects[1].image} 
+                alt={projects[1].title}
+                className="w-full h-64 object-cover"
+              />
+              <CardHeader>
+                <CardTitle>{projects[1].title}</CardTitle>
+                <CardDescription>{projects[1].description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {projects[1].tags.map((tag) => (
+                    <Badge key={tag} variant="secondary">{tag}</Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button variant="outline" className="ml-auto">
+                  Voir détails <ExternalLink className="ml-2 h-4 w-4" />
+                </Button>
+              </CardFooter>
+            </Card>
+          </ScrollReveal>
+        </div>
+      </section>
+      
+      <section id="all-projects" className="py-10">
+        <ScrollReveal>
+          <h2 className="text-2xl font-semibold mb-6">Tous les Services</h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project, index) => (
+            <ScrollReveal key={project.id} delay={index * 100}>
+              <Card className="overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-48 object-cover"
+                />
+                <CardHeader>
+                  <CardTitle>{project.title}</CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary">{tag}</Badge>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="ghost" asChild className="ml-auto">
+                    <a href={`#project-${project.id}`}>
+                      Voir détails <ExternalLink className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
       </section>
