@@ -57,7 +57,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   return (
     <MapContainer
-      defaultCenter={center}
+      center={center}
       zoom={10}
       style={{ height: height, width: "100%", borderRadius: "0.5rem" }}
       scrollWheelZoom={false}

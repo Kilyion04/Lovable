@@ -55,32 +55,49 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, []);
 
-  // Fonction de connexion
+  // Fonction de connexion - Vérifie si les informations existent dans localStorage
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulation d'une vérification simple (à remplacer par une API réelle)
-    if (email && password) {
-      // Créer un utilisateur fictif pour la démonstration
-      const newUser: User = {
-        id: Date.now().toString(),
-        name: email.split('@')[0],
-        email,
-      };
-      
-      // Enregistrer dans localStorage
-      localStorage.setItem('user', JSON.stringify(newUser));
+    // Vérifier si l'email existe dans localStorage
+    const userList = getUsersFromLocalStorage();
+    const userExists = userList.find(u => u.email === email);
+    
+    if (userExists) {
+      // Simulons une vérification de mot de passe (dans une application réelle, vous auriez 
+      // un vrai système de hachage et de vérification de mot de passe)
+      // Pour cette démo, nous acceptons simplement l'utilisateur s'il existe
       
       // Mettre à jour l'état
-      setUser(newUser);
+      localStorage.setItem('user', JSON.stringify(userExists));
+      setUser(userExists);
       setIsAuthenticated(true);
       return true;
     }
     return false;
   };
 
+  // Récupère la liste des utilisateurs du localStorage ou retourne un tableau vide
+  const getUsersFromLocalStorage = (): User[] => {
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+      try {
+        return JSON.parse(storedUsers);
+      } catch (error) {
+        console.error('Erreur lors du chargement des utilisateurs:', error);
+        return [];
+      }
+    }
+    return [];
+  };
+
   // Fonction d'inscription
   const register = async (name: string, email: string, password: string): Promise<boolean> => {
-    // Simulation d'une inscription (à remplacer par une API réelle)
     if (name && email && password) {
+      // Vérifier si l'utilisateur existe déjà
+      const userList = getUsersFromLocalStorage();
+      if (userList.some(u => u.email === email)) {
+        return false; // L'utilisateur existe déjà
+      }
+
       // Créer un nouvel utilisateur
       const newUser: User = {
         id: Date.now().toString(),
@@ -88,10 +105,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         email,
       };
       
-      // Enregistrer dans localStorage
-      localStorage.setItem('user', JSON.stringify(newUser));
+      // Ajouter l'utilisateur à la liste des utilisateurs
+      userList.push(newUser);
+      localStorage.setItem('users', JSON.stringify(userList));
       
-      // Mettre à jour l'état
+      // Connecter l'utilisateur
+      localStorage.setItem('user', JSON.stringify(newUser));
       setUser(newUser);
       setIsAuthenticated(true);
       return true;
@@ -117,4 +136,3 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-

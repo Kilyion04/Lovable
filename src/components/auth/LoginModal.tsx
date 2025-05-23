@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,7 +37,7 @@ export function LoginModal({ isOpen, onClose, onSwitchToRegister }: LoginModalPr
       } else {
         toast({
           title: "Échec de la connexion",
-          description: "Vérifiez vos identifiants et réessayez",
+          description: "Aucun compte trouvé avec cet email. Veuillez vous inscrire d'abord.",
           variant: "destructive",
         });
       }
@@ -57,6 +57,9 @@ export function LoginModal({ isOpen, onClose, onSwitchToRegister }: LoginModalPr
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Connexion</DialogTitle>
+          <DialogDescription>
+            Connectez-vous à votre compte pour accéder à votre profil
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
           <div className="space-y-2">
