@@ -23,9 +23,9 @@ const About = () => {
           
           <div className="md:col-span-2">
             <h1 className="text-4xl font-bold mb-3">Kilyion Romary</h1>
-            <h2 className="text-2xl text-muted-foreground mb-4">Informaticien Indépendant</h2>
+            <h2 className="text-2xl text-muted-foreground mb-4">Informaticien, Dev/Data</h2>
             <p className="text-lg mb-4">
-              Étudiant en dernière année à CESI École d'Ingénieurs LIlle, ALternants Data chez SIA Habitat Douai
+              Étudiant en dernière année à CESI École d'Ingénieurs Lille, Alternants Data chez SIA Habitat Douai
             </p>
             
             <div className="flex items-center gap-2 mb-6 text-muted-foreground">
@@ -124,6 +124,50 @@ const About = () => {
         <div className="space-y-6">
           <Card>
             <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">CESI École d'Ingénieurs, Cycle Ingénieur</h3>
+                        <p className="text-muted-foreground">Lille</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">2016</span>
+                    </div>
+                    <p className="mt-2">
+                      Formation en 3ans dans les domaines du développement web/applicatif mais également de la data.
+                    </p>
+                  </div>
+                </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">CESI École d'Ingénieurs, Cycle préparatoire</h3>
+                        <p className="text-muted-foreground">Lille</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">2016</span>
+                    </div>
+                    <p className="mt-2">
+                      Formation en 2ans à tout les domaines de l'informatique, réseau, développment, data et à la méthodologie PBL
+                    </p>
+                  </div>
+                </div>
+            </CardContent>
+          </Card>
+        
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-start gap-4">
                 <div className="bg-muted p-2 rounded-md">
                   <GraduationCap className="h-6 w-6" />
@@ -131,14 +175,13 @@ const About = () => {
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-medium">BTS Services Informatiques aux Organisations</h3>
-                      <p className="text-muted-foreground">AFPA</p>
+                      <h3 className="text-xl font-medium">1ère année de Licence Informatique</h3>
+                      <p className="text-muted-foreground">Faculté Jean Perrin, Lens</p>
                     </div>
                     <span className="text-sm text-muted-foreground">2016</span>
                   </div>
                   <p className="mt-2">
-                    Spécialisation en administration des systèmes et réseaux. Projets incluant
-                    la conception et la mise en place d'infrastructures informatiques complètes.
+                    Initiation au monde du développement, apprentissage des langages de balisages et de python.
                   </p>
                 </div>
               </div>
@@ -154,14 +197,13 @@ const About = () => {
                 <div>
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-medium">BAC Pro Systèmes Électroniques Numériques</h3>
-                      <p className="text-muted-foreground">Lycée Auguste Béhal</p>
+                      <h3 className="text-xl font-medium">BAC Scientifique, Spé Mathématique</h3>
+                      <p className="text-muted-foreground">Lycée Pablo Picasso, Avion</p>
                     </div>
                     <span className="text-sm text-muted-foreground">2014</span>
                   </div>
                   <p className="mt-2">
-                    Formation aux fondamentaux des systèmes électroniques et informatiques.
-                    Apprentissage des techniques de maintenance et de dépannage.
+                    Formation aux fondamentaux de de la science, quelle soient physique, chimique, mathématique.
                   </p>
                 </div>
               </div>
