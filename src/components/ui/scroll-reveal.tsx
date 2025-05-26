@@ -80,7 +80,7 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out",
+        "transition-all duration-1000 ease-out",
         isVisible
           ? "opacity-100 transform-none"
           : `opacity-0 ${getDirectionClasses()}`,
