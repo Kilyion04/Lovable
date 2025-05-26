@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   MapContainer as LeafletMapContainer,
@@ -7,7 +8,6 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L, { LatLngExpression } from "leaflet";
-import type { MapContainerProps, TileLayerProps } from "react-leaflet";
 
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
@@ -52,23 +52,18 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   return (
     <LeafletMapContainer
-      {...({
-        center,
-        zoom: 10,
-        scrollWheelZoom: false,
-        style: {
-          height,
-          width: "100%",
-          borderRadius: "0.5rem",
-        },
-      } as MapContainerProps)}
+      center={center}
+      zoom={10}
+      scrollWheelZoom={false}
+      style={{
+        height,
+        width: "100%",
+        borderRadius: "0.5rem",
+      }}
     >
       <TileLayer
-        {...({
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-          url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        } as TileLayerProps)}
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {locations.map((location, index) => (
         <Marker

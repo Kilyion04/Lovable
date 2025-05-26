@@ -3,127 +3,182 @@ import { Layout } from "@/components/layout/Layout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Download, Star, MapPin, GraduationCap, Briefcase } from "lucide-react";
+import { Download, Star, MapPin, GraduationCap, Briefcase, Phone, Mail, Github, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const About = () => {
   return (
     <Layout>
-      <section id="profile" className="py-10">
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          <div className="md:col-span-1 flex flex-col items-center md:items-end">
-            <Avatar className="w-48 h-48">
-              <AvatarImage 
-                src="/placeholder.svg"
-                alt="Photo de profil de Kilyion Romary" 
-              />
-              <AvatarFallback>KR</AvatarFallback>
-            </Avatar>
-          </div>
-          
-          <div className="md:col-span-2">
-            <h1 className="text-4xl font-bold mb-3">Kilyion Romary</h1>
-            <h2 className="text-2xl text-muted-foreground mb-4">Informaticien, Dev/Data</h2>
-            <p className="text-lg mb-4">
-              Étudiant en dernière année à CESI École d'Ingénieurs Lille, Alternants Data chez SIA Habitat Douai
-            </p>
-            
-            <div className="flex items-center gap-2 mb-6 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              <span>Lille, France</span>
+      <ScrollReveal>
+        <section id="profile" className="py-10">
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            <div className="md:col-span-1 flex flex-col items-center md:items-end">
+              <Avatar className="w-48 h-48">
+                <AvatarImage 
+                  src="/placeholder.svg"
+                  alt="Photo de profil de Kilyion Romary" 
+                />
+                <AvatarFallback>KR</AvatarFallback>
+              </Avatar>
             </div>
             
-            <div className="flex flex-wrap gap-3">
-              <Button asChild>
-                <Link to="/contact">Me contacter</Link>
-              </Button>
-              <Button variant="outline">
-                Télécharger CV <Download className="ml-2 h-4 w-4" />
-              </Button>
+            <div className="md:col-span-2">
+              <h1 className="text-4xl font-bold mb-3">Kilyion Romary</h1>
+              <h2 className="text-2xl text-muted-foreground mb-4">Alternant Chargé Mission Data chez SIA Habitat</h2>
+              <p className="text-lg mb-4">
+                Étudiant en 5ème année à CESI École d'Ingénieurs Lille, Alternant chez SIA Habitat Douai
+              </p>
+              
+              <div className="flex items-center gap-2 mb-4 text-muted-foreground">
+                <MapPin className="h-4 w-4" />
+                <span>Lille, France</span>
+              </div>
+              
+              <div className="space-y-2 mb-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  <span>06 32 63 54 72</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  <span>kilyion.romary@viacesi.fr</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  <span>kilyion.romary@sia-habitat.com</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Linkedin className="h-4 w-4" />
+                  <a href="https://linkedin.com/in/kilyion-romary-806531216" className="text-primary hover:underline">LinkedIn</a>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Github className="h-4 w-4" />
+                  <a href="https://github.com/Kilyion04" className="text-primary hover:underline">GitHub</a>
+                </div>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                <Button asChild>
+                  <Link to="/contact">Me contacter</Link>
+                </Button>
+                <Button variant="outline">
+                  Télécharger CV <Download className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
       
-      <section id="biography" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Biographie</h2>
-        <div className="space-y-4 text-lg">
-          <p>
-            Je suis un informaticien indépendant passionné par l'assistance technique et le dépannage informatique.
-            Avec plusieurs années d'expérience dans le domaine, j'ai travaillé sur différents projets et résolu de nombreux problèmes informatiques
-            pour particuliers et professionnels.
-          </p>
-          <p>
-            Mon objectif est de rendre l'informatique accessible à tous en proposant des solutions adaptées aux besoins de chacun.
-            Je suis particulièrement intéressé par les technologies réseau, la sécurité informatique, et les serveurs de jeux comme Minecraft.
-          </p>
-          <div className="flex items-center mt-6">
-            <div className="mr-4">
-              <Star className="text-yellow-500 h-5 w-5" />
-            </div>
-            <p className="text-muted-foreground italic">
-              "Le succès c'est d'aller d'échec en échec sans perdre son enthousiasme."
+      <ScrollReveal delay={200}>
+        <section id="biography" className="py-10">
+          <h2 className="text-2xl font-semibold mb-6">À propos</h2>
+          <div className="space-y-4 text-lg">
+            <p>
+              Étudiant en 5ème année à CESI École d'Ingénieurs.
+              Je suis actuellement alternant en contrat de professionnalisation chez SIA Habitat.
             </p>
+            <p>
+              Formé au PBL, j'ai acquis des compétences solides en développement et réseau, confirmées par mes différentes expériences professionnelles.
+            </p>
+            <p>
+              Rigoureux, organisé et doté d'un excellent esprit d'équipe, je mets actuellement ces compétences au service de SIA Habitat, où je me forme en alternance. Mon objectif est de continuer à enrichir mon expertise et d'apporter une réelle valeur ajoutée avec un regard innovant dans chaque projet.
+            </p>
+            <div className="flex items-center mt-6">
+              <div className="mr-4">
+                <Star className="text-yellow-500 h-5 w-5" />
+              </div>
+              <p className="text-muted-foreground italic">
+                "Le succès c'est d'aller d'échec en échec sans perdre son enthousiasme."
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
       
-      <section id="experience" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Expérience</h2>
-        <div className="space-y-6">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-muted p-2 rounded-md">
-                  <Briefcase className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-medium">Informaticien Indépendant</h3>
-                      <p className="text-muted-foreground">DOKKUL</p>
-                    </div>
-                    <span className="text-sm text-muted-foreground">2021 - Présent</span>
+      <ScrollReveal delay={400}>
+        <section id="experience" className="py-10">
+          <h2 className="text-2xl font-semibold mb-6">Expérience</h2>
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <Briefcase className="h-6 w-6" />
                   </div>
-                  <p className="mt-2">
-                    Dépannage informatique, installation et configuration de réseaux, maintenance de serveurs, assistance technique.
-                    Support clients particuliers et professionnels dans la région des Hauts-de-France.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-muted p-2 rounded-md">
-                  <Briefcase className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-medium">Administrateur Réseau</h3>
-                      <p className="text-muted-foreground">Diverses entreprises</p>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">Alternant Chargé Mission Data</h3>
+                        <p className="text-muted-foreground">SIA Habitat - Douai</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">09/2024 - En cours</span>
                     </div>
-                    <span className="text-sm text-muted-foreground">2016 - 2021</span>
+                    <p className="mt-2">
+                      Alternance en contrat de professionnalisation dans le domaine de la data.
+                      Développement de solutions data et amélioration des processus métiers.
+                    </p>
                   </div>
-                  <p className="mt-2">
-                    Administration et maintenance des infrastructures réseau. Configuration des équipements, 
-                    résolution des problèmes de connectivité, mise en place de solutions de sécurité.
-                  </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <Briefcase className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">Stage Développement</h3>
+                        <p className="text-muted-foreground">Entreprise industrielle</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">01/2023 - 04/2023</span>
+                    </div>
+                    <p className="mt-2">
+                      Création d'applications internes pour tablette afin de gérer le matériel au sein d'une industrie 
+                      ainsi que les visites au sein de l'entreprise à l'aide de Visual Studio.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <Briefcase className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">Stage Développement Web</h3>
+                        <p className="text-muted-foreground">LSEE - Faculté des Sciences de Béthune</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">04/2022 - 07/2022</span>
+                    </div>
+                    <p className="mt-2">
+                      Création d'un site utilisant EasyPHP et WordPress pour répertorier tout le matériel informatique 
+                      du LSEE à la Faculté des Sciences de Béthune.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </ScrollReveal>
       
-      <section id="education" className="py-10">
-        <h2 className="text-2xl font-semibold mb-6">Formation</h2>
-        <div className="space-y-6">
-          <Card>
-            <CardContent className="p-6">
+      <ScrollReveal delay={600}>
+        <section id="education" className="py-10">
+          <h2 className="text-2xl font-semibold mb-6">Formation</h2>
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-muted p-2 rounded-md">
                     <GraduationCap className="h-6 w-6" />
@@ -131,21 +186,44 @@ const About = () => {
                   <div>
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="text-xl font-medium">CESI École d'Ingénieurs, Cycle Ingénieur</h3>
-                        <p className="text-muted-foreground">Lille</p>
+                        <h3 className="text-xl font-medium">CESI École d'Ingénieurs, Cycle Ingénieur (Alternant)</h3>
+                        <p className="text-muted-foreground">Lille | SIA Habitat - Douai</p>
                       </div>
-                      <span className="text-sm text-muted-foreground">2016</span>
+                      <span className="text-sm text-muted-foreground">08/2024 - En cours</span>
                     </div>
                     <p className="mt-2">
-                      Formation en 3ans dans les domaines du développement web/applicatif mais également de la data.
+                      Formation en alternance spécialisée dans le domaine de la data et du développement.
                     </p>
                   </div>
                 </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardContent className="p-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">CESI École d'Ingénieurs, Cycle Ingénieur (Étudiant)</h3>
+                        <p className="text-muted-foreground">Lille</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">09/2022 - 09/2024</span>
+                    </div>
+                    <p className="mt-2">
+                      Formation en ingénierie informatique avec mobilité internationale (09/2023-02/2024).
+                      Mise en place d'une solution Python pour déterminer un trajet économe en énergie.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-muted p-2 rounded-md">
                     <GraduationCap className="h-6 w-6" />
@@ -154,63 +232,133 @@ const About = () => {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="text-xl font-medium">CESI École d'Ingénieurs, Cycle préparatoire</h3>
-                        <p className="text-muted-foreground">Lille</p>
+                        <p className="text-muted-foreground">Arras</p>
                       </div>
-                      <span className="text-sm text-muted-foreground">2016</span>
+                      <span className="text-sm text-muted-foreground">09/2020 - 07/2022</span>
                     </div>
                     <p className="mt-2">
-                      Formation en 2ans à tout les domaines de l'informatique, réseau, développment, data et à la méthodologie PBL
+                      Formation préparatoire aux métiers de l'ingénierie informatique.
+                      Apprentissage de la méthodologie PBL et des fondamentaux.
                     </p>
                   </div>
                 </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
         
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-muted p-2 rounded-md">
-                  <GraduationCap className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-medium">1ère année de Licence Informatique</h3>
-                      <p className="text-muted-foreground">Faculté Jean Perrin, Lens</p>
-                    </div>
-                    <span className="text-sm text-muted-foreground">2016</span>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <GraduationCap className="h-6 w-6" />
                   </div>
-                  <p className="mt-2">
-                    Initiation au monde du développement, apprentissage des langages de balisages et de python.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="bg-muted p-2 rounded-md">
-                  <GraduationCap className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-medium">BAC Scientifique, Spé Mathématique</h3>
-                      <p className="text-muted-foreground">Lycée Pablo Picasso, Avion</p>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">1ère année de Licence Informatique</h3>
+                        <p className="text-muted-foreground">Faculté Jean Perrin, Lens</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">09/2019 - 07/2020</span>
                     </div>
-                    <span className="text-sm text-muted-foreground">2014</span>
+                    <p className="mt-2">
+                      Initiation au monde du développement, apprentissage des langages de programmation.
+                    </p>
                   </div>
-                  <p className="mt-2">
-                    Formation aux fondamentaux de de la science, quelle soient physique, chimique, mathématique.
-                  </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="bg-muted p-2 rounded-md">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-medium">BAC Scientifique</h3>
+                        <p className="text-muted-foreground">Lycée Pablo Picasso, Avion</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">09/2016 - 07/2019</span>
+                    </div>
+                    <p className="mt-2">
+                      Formation scientifique générale avec spécialisation en mathématiques.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal delay={800}>
+        <section id="skills" className="py-10">
+          <h2 className="text-2xl font-semibold mb-6">Compétences Techniques</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-medium mb-4">Langages & Technologies</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["C", "C++", "C#", "Python", "SQL", "PHP", "HTML", "CSS", "JavaScript"].map((tech) => (
+                    <span key={tech} className="bg-muted px-3 py-1 rounded-full text-sm">{tech}</span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-medium mb-4">Outils & Environnements</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["MySQL Workbench", "PostgreSQL", "MongoDB", "Visual Studio", "VS Code", "Jupyter Notebook", "Arduino", "Cisco Packet Tracer"].map((tool) => (
+                    <span key={tool} className="bg-muted px-3 py-1 rounded-full text-sm">{tool}</span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal delay={1000}>
+        <section id="qualities" className="py-10">
+          <h2 className="text-2xl font-semibold mb-6">Qualités & Langues</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-medium mb-4">Qualités</h3>
+                <ul className="space-y-2">
+                  <li>• Organisation</li>
+                  <li>• Travail en équipe</li>
+                  <li>• Enthousiasme</li>
+                  <li>• Autonomie</li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-medium mb-4">Langues & Centres d'intérêt</h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-medium">Langues</h4>
+                    <p>Anglais : TOEIC niveau B2</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Sports</h4>
+                    <p>Football, Musculation</p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Centres d'intérêt</h4>
+                    <p>Science, Géographie, Informatique/Technologies</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      </ScrollReveal>
     </Layout>
   );
 };
