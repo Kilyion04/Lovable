@@ -165,7 +165,6 @@ export const Sidebar = () => {
   const { isExpanded, setIsExpanded } = useContext(SidebarContext);
   const location = useLocation();
 
-  // Determine which navigation items to show based on the current route
   const getNavItems = (): NavItem[] => {
     const pathname = location.pathname;
     
@@ -180,7 +179,6 @@ export const Sidebar = () => {
     } else if (pathname.startsWith('/minecraft')) {
       return minecraftNavItems;
     } else {
-      // Default to home page nav items
       return homeNavItems;
     }
   };
@@ -188,19 +186,16 @@ export const Sidebar = () => {
   const navItems = getNavItems();
   const currentPath = location.pathname;
 
-  // Function to handle navigation to anchor links
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     e.preventDefault();
     const [basePath, hash] = path.split('#');
     
-    // If we're already on the page with the correct path, just scroll to the section
     if (currentPath === basePath || (currentPath === '/' && basePath === '/' || basePath === '')) {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // Otherwise, navigate to the new page
       window.location.href = path;
     }
   };
@@ -216,7 +211,6 @@ export const Sidebar = () => {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
-        {/* Add top spacing */}
         <div className="h-4"></div>
         
         {navItems.map((item) => (
@@ -224,4 +218,13 @@ export const Sidebar = () => {
             key={item.label}
             href={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
-            className="flex items-center p-2 rounded-md
+            className="flex items-center p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            <span className="mr-2">{item.icon}</span>
+            {isExpanded && <span>{item.label}</span>}
+          </a>
+        ))}
+      </div>
+    </aside>
+  );
+};
