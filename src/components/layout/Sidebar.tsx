@@ -1,4 +1,3 @@
-
 import { useContext } from "react";
 import { SidebarContext } from "./SidebarContext";
 import { useLocation } from "react-router-dom";
@@ -209,13 +208,12 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "fixed top-[94px] left-0 z-[5] h-[calc(100vh-94px)] bg-sidebar border-r transition-all duration-300",
+        "fixed top-[94px] left-0 z-[5] h-[calc(100vh-94px)] bg-sidebar border-r transition-all duration-300 ease-out",
         "lg:translate-x-0",
         isExpanded ? "w-64" : "w-16"
       )}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      style={{ transition: "background-color 0.2s ease, width 0.3s ease" }}
     >
       <div className="flex flex-col h-full p-2 space-y-1 overflow-y-auto">
         {/* Add top spacing */}
@@ -226,21 +224,4 @@ export const Sidebar = () => {
             key={item.label}
             href={item.href}
             onClick={(e) => handleNavigation(e, item.href)}
-            className="flex items-center p-2 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-300"
-          >
-            <div className="min-w-[24px] flex justify-center">
-              {item.icon}
-            </div>
-            <span
-              className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
-                isExpanded ? "opacity-100 ml-2" : "opacity-0 ml-0 w-0 overflow-hidden"
-              }`}
-            >
-              {item.label}
-            </span>
-          </a>
-        ))}
-      </div>
-    </aside>
-  );
-};
+            className="flex items-center p-2 rounded-md
