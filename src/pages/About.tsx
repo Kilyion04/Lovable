@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/layout/Layout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,7 @@ const About = () => {
             <div className="md:col-span-1 flex flex-col items-center md:items-end">
               <Avatar className="w-48 h-48">
                 <AvatarImage 
-                  src="/placeholder.svg"
+                  src="/lovable-uploads/f8c4b4ef-1814-44c8-9c4a-67f6859379fb.png"
                   alt="Photo de profil de Kilyion Romary" 
                 />
                 <AvatarFallback>KR</AvatarFallback>
